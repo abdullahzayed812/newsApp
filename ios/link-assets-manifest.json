@@ -2,40 +2,36 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/NotoKufiArabic-Black.ttf",
-      "sha1": "2d7a2cdea9de5a98eba0763e92459d352dd8a4b3"
+      "path": "assets/fonts/Cairo-ExtraLight.ttf",
+      "sha1": "3b2a6f2c5878e419a2389dab9f4438692111fe24"
     },
     {
-      "path": "assets/fonts/NotoKufiArabic-Bold.ttf",
-      "sha1": "e16ebd4a250a2dea8bcb087782a6c431b7d70c5a"
+      "path": "assets/fonts/Cairo-Light.ttf",
+      "sha1": "988da945c9fcff0dcf0c89b9623fa4d533d314db"
     },
     {
-      "path": "assets/fonts/NotoKufiArabic-ExtraBold.ttf",
-      "sha1": "e1b031a5cd8e46e7759e363c28b8391a42a0dd0b"
+      "path": "assets/fonts/Cairo-Medium.ttf",
+      "sha1": "400c10b6b6e55b1c18f6cf698d2afb346eec6128"
     },
     {
-      "path": "assets/fonts/NotoKufiArabic-ExtraLight.ttf",
-      "sha1": "831122251dbf362745f2725dd84d2aa81de90861"
+      "path": "assets/fonts/Cairo-Regular.ttf",
+      "sha1": "9457acad819e3f1d8acb569355d6bcb2759bf144"
     },
     {
-      "path": "assets/fonts/NotoKufiArabic-Light.ttf",
-      "sha1": "c389753d07d5ce249c6d7ef36364fe08522d9edf"
+      "path": "assets/fonts/Cairo-SemiBold.ttf",
+      "sha1": "24439f13e088e4a6cee82c556c021460a97c91a9"
     },
     {
-      "path": "assets/fonts/NotoKufiArabic-Medium.ttf",
-      "sha1": "6b2dc2d9d9f16ea35b1cabd939f9fd526bf553cb"
+      "path": "assets/fonts/cairo-black.ttf",
+      "sha1": "c6e74ed642575b329af68f9c047e5a82daf18a56"
     },
     {
-      "path": "assets/fonts/NotoKufiArabic-Regular.ttf",
-      "sha1": "5de37ded6147fe0d8c2fcabf5e657a4a55325fc8"
+      "path": "assets/fonts/cairo-bold.ttf",
+      "sha1": "66d7178700f68bf1b977675fb28e5c1ed3e7c42d"
     },
     {
-      "path": "assets/fonts/NotoKufiArabic-SemiBold.ttf",
-      "sha1": "16e8621a170b05bdd5d8f34693bb06436bfc55e7"
-    },
-    {
-      "path": "assets/fonts/NotoKufiArabic-Thin.ttf",
-      "sha1": "4175f46e97dd3590bd72def6b21620a219a72e20"
+      "path": "assets/fonts/cairo-extraBold.ttf",
+      "sha1": "b108cf1c3b867e6e1adbe55b314f019a7f34d195"
     }
   ]
 }

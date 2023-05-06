@@ -53,15 +53,14 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>NotoKufiArabic-Black.ttf</string>
-		<string>NotoKufiArabic-Bold.ttf</string>
-		<string>NotoKufiArabic-ExtraBold.ttf</string>
-		<string>NotoKufiArabic-ExtraLight.ttf</string>
-		<string>NotoKufiArabic-Light.ttf</string>
-		<string>NotoKufiArabic-Medium.ttf</string>
-		<string>NotoKufiArabic-Regular.ttf</string>
-		<string>NotoKufiArabic-SemiBold.ttf</string>
-		<string>NotoKufiArabic-Thin.ttf</string>
+		<string>Cairo-ExtraLight.ttf</string>
+		<string>Cairo-Light.ttf</string>
+		<string>Cairo-Medium.ttf</string>
+		<string>Cairo-Regular.ttf</string>
+		<string>Cairo-SemiBold.ttf</string>
+		<string>cairo-black.ttf</string>
+		<string>cairo-bold.ttf</string>
+		<string>cairo-extraBold.ttf</string>
 	</array>
 </dict>
 </plist>
