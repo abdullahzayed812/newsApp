@@ -7,14 +7,13 @@
 
 import React from "react";
 import { SafeAreaView } from "react-native";
-import { StartScreen } from "./screens/startScreen";
+import { RootStackScreen } from "./routes";
 
 function App(): JSX.Element {
   return (
-    <SafeAreaView>
-      <StartScreen />
+    <SafeAreaView style={{ flex: 1 }}>
+      <RootStackScreen />
     </SafeAreaView>
   );
 }
-
 export default App;

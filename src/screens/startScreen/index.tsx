@@ -4,7 +4,6 @@ import {
   ImageBackground,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import { IMAGES } from "../../helpers/images";

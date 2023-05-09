@@ -1,11 +1,11 @@
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabStackScreenParamsList } from "../types";
-import React from "react";
 import { MainStackScreen } from "../stacks/main";
 import { NewsStackScreen } from "../stacks/news";
 import { COLORS } from "../../helpers/colors";
 import { Image } from "react-native/types";
-import { FakeProfileScreen } from "../../screens/fake/fake";
+import { ProfileStackScreen } from "../stacks/profile";
 
 const TabStack = createBottomTabNavigator<TabStackScreenParamsList>();
 
@@ -53,14 +53,9 @@ export const TabStackScreen: React.FC = () => {
         options={{ tabBarLabel: "الإخبار" }}
       />
       <TabStack.Screen
-        name="FakeProfileScreen"
-        component={FakeProfileScreen}
+        name="ProfileStackScreen"
+        component={ProfileStackScreen}
         options={{ tabBarLabel: "حسابي" }}
-        listeners={() => ({
-          tabPress: (event) => {
-            event.preventDefault();
-          },
-        })}
       />
     </TabStack.Navigator>
   );

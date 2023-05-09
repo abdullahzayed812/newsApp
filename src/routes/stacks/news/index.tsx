@@ -7,7 +7,10 @@ const NewsStack = createNativeStackNavigator<NewsStackScreenParamsList>();
 
 export const NewsStackScreen: React.FC = () => {
   return (
-    <NewsStack.Navigator>
+    <NewsStack.Navigator
+      initialRouteName="NewsScreen"
+      screenOptions={{ headerShown: false }}
+    >
       <NewsStack.Screen name="NewsScreen" component={NewsScreen} />
     </NewsStack.Navigator>
   );

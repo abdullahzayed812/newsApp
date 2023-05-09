@@ -12,13 +12,17 @@ export type NewsStackScreenParamsList = {
 export type ProfileStackScreenParamsList = {
   ProfileScreen: undefined;
 };
+export type AuthStackScreenParamsList = {
+  SignUpScreen: undefined;
+  SignInScreen: undefined;
+};
 export type TabStackScreenParamsList = {
   MainStackScreen: NavigatorScreenParams<MainStackScreenParamsList>;
   NewsStackScreen: NavigatorScreenParams<NewsStackScreenParamsList>;
-  FakeProfileScreen: undefined;
+  ProfileStackScreen: NavigatorScreenParams<ProfileStackScreenParamsList>;
 };
 export type RootStackParamList = {
   StartStackScreen: NavigatorScreenParams<StartStackScreenParamList>;
   TabStackScreen: NavigatorScreenParams<TabStackScreenParamsList>;
-  ProfileStackScreen: NavigatorScreenParams<ProfileStackScreenParamsList>;
+  AuthStackScreen: NavigatorScreenParams<AuthStackScreenParamsList>;
 };

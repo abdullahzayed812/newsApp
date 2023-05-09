@@ -7,7 +7,10 @@ const ProfileStack = createNativeStackNavigator<ProfileStackScreenParamsList>();
 
 export const ProfileStackScreen: React.FC = () => {
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator
+      initialRouteName="ProfileScreen"
+      screenOptions={{ headerShown: false }}
+    >
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
     </ProfileStack.Navigator>
   );

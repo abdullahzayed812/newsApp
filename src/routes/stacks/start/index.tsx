@@ -7,7 +7,10 @@ const StartStack = createNativeStackNavigator<StartStackScreenParamList>();
 
 export const StartStackScreen: React.FC = () => {
   return (
-    <StartStack.Navigator>
+    <StartStack.Navigator
+      initialRouteName="StartScreen"
+      screenOptions={{ headerShown: false }}
+    >
       <StartStack.Screen name="StartScreen" component={StartScreen} />
     </StartStack.Navigator>
   );
