@@ -4,6 +4,7 @@ import {
   ImageBackground,
   StatusBar,
   StyleSheet,
+  ToastAndroid,
   View,
 } from "react-native";
 import { IMAGES } from "../../helpers/images";
@@ -14,8 +15,39 @@ import { GreetingBox } from "../../components/startScreenComponents/greeting";
 import { SMALL_SPACING } from "../../constants/dimensions";
 import { Category } from "../../components/global/category";
 import { Button } from "../../components/global/button";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../routes/types";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
-export const StartScreen: React.FC = () => {
+interface Props {
+  navigation: NativeStackNavigationProp<RootStackParamList>;
+}
+
+const CATEGORIES: string[] = [
+  "المحليات",
+  "السياسه",
+  "الرياضة",
+  "الإقتصاد",
+  "الإقتصاد",
+  "الثقافة",
+  "المجتمع",
+  "أخر الأخبار",
+];
+
+export const StartScreen: React.FC<Props> = ({ navigation }) => {
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState<
+    number | undefined
+  >(undefined);
+
+  const handleStartNowPress = () => {
+    console.log("start now pressed");
+    if (selectedCategoryIndex) {
+      navigation.reset({ routes: [{ name: "TabStackScreen" }] });
+    } else {
+      Toast.show({ type: "error", text1: "إختر تصنيفاً إخبارياً أولاً" });
+    }
+  };
+
   return (
     <ImageBackground
       source={IMAGES.startScreenBg}
@@ -32,16 +64,21 @@ export const StartScreen: React.FC = () => {
       >
         <GreetingBox />
         <View style={styles.categoryContainer}>
-          <Category text="المحليات" />
-          <Category text="السياسه" />
-          <Category text="الرياضة" />
-          <Category text="الإقتصاد" />
-          <Category text="الإقتصاد" />
-          <Category text="الثقافة" />
-          <Category text="المجتمع" />
-          <Category text="أخر الأخبار" />
+          {CATEGORIES.map((category, index) => (
+            <Category
+              key={index}
+              text={category}
+              index={index}
+              setSelectedCategoryIndex={setSelectedCategoryIndex}
+              selectedCategoryIndex={selectedCategoryIndex}
+            />
+          ))}
         </View>
-        <Button text="إبدا الأن" buttonStyle={styles.button} />
+        <Button
+          text="إبدا الأن"
+          buttonStyle={styles.button}
+          onPress={handleStartNowPress}
+        />
       </LinearGradient>
     </ImageBackground>
   );

@@ -8,11 +8,12 @@ import { HEADER_2, HEADER_3 } from "../../constants/fonts";
 interface Props {
   buttonStyle?: ViewStyle;
   text: string;
+  onPress: () => void;
 }
 
-export const Button: React.FC<Props> = ({ buttonStyle, text }) => {
+export const Button: React.FC<Props> = ({ buttonStyle, text, onPress }) => {
   return (
-    <TouchableOpacity style={[styles.container, buttonStyle]}>
+    <TouchableOpacity style={[styles.container, buttonStyle]} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );

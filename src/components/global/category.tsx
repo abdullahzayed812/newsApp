@@ -1,5 +1,11 @@
-import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React, { Dispatch, SetStateAction } from "react";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { BORDER_RADIUS } from "../../constants/dimensions";
 import { COLORS } from "../../helpers/colors";
 import { TEXT_12, TEXT_14 } from "../../constants/fonts";
@@ -7,13 +13,30 @@ import { globalStyles } from "../../helpers/globalStyles";
 
 interface Props {
   text: string;
+  index: number;
+  setSelectedCategoryIndex: Dispatch<SetStateAction<number | undefined>>;
+  selectedCategoryIndex: number | undefined;
 }
 
-export const Category: React.FC<Props> = ({ text }) => {
+export const Category: React.FC<Props> = ({
+  text,
+  index,
+  setSelectedCategoryIndex,
+  selectedCategoryIndex,
+}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => setSelectedCategoryIndex(index)}
+      style={[
+        styles.container,
+        {
+          backgroundColor:
+            index === selectedCategoryIndex ? COLORS.mainColor : "transparent",
+        },
+      ]}
+    >
       <Text style={styles.text}>{text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

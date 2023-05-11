@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { RootStackParamList } from "./types";
 import { TabStackScreen } from "./tab";
-import { ProfileStackScreen } from "./stacks/profile";
 import { StartStackScreen } from "./stacks/start";
 import { AuthStackScreen } from "./stacks/auth";
 
@@ -13,7 +12,7 @@ export const RootStackScreen: React.FC = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName="TabStackScreen"
+        initialRouteName="StartStackScreen"
         screenOptions={{ headerShown: false }}
       >
         <RootStack.Screen
