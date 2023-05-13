@@ -7,6 +7,7 @@ import { NewsStackScreen } from "../stacks/news";
 import { COLORS } from "../../helpers/colors";
 import { IMAGES } from "../../helpers/images";
 import { ProfileStackScreen } from "../stacks/profile";
+import { TEXT_12 } from "../../constants/fonts";
 
 const TabStack = createBottomTabNavigator<TabStackScreenParamsList>();
 
@@ -16,7 +17,7 @@ export const TabStackScreen: React.FC = () => {
       initialRouteName="MainStackScreen"
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarLabelStyle: { fontSize: 13 },
+        tabBarLabelStyle: { ...styles.tabBarLabelStyle },
         tabBarStyle: { ...styles.tabBarStyle },
         tabBarActiveTintColor: COLORS.mainColor,
         tabBarInactiveTintColor: COLORS.mediumGray,
@@ -67,5 +68,9 @@ const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: "#000",
     height: height * 0.06,
+  },
+  tabBarLabelStyle: {
+    ...TEXT_12,
+    color: COLORS.white,
   },
 });

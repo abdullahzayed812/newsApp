@@ -1,12 +1,13 @@
 import React, { Dispatch, SetStateAction } from "react";
 import {
   Dimensions,
+  Image,
+  ImageSourcePropType,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from "react-native";
-import { BORDER_RADIUS } from "../../constants/dimensions";
+import { BORDER_RADIUS, SMALL_SPACING } from "../../constants/dimensions";
 import { COLORS } from "../../helpers/colors";
 import { TEXT_12, TEXT_14 } from "../../constants/fonts";
 import { globalStyles } from "../../helpers/globalStyles";
@@ -16,6 +17,8 @@ interface Props {
   index: number;
   setSelectedCategoryIndex: Dispatch<SetStateAction<number | undefined>>;
   selectedCategoryIndex: number | undefined;
+  imageSource?: ImageSourcePropType;
+  isListItem?: boolean;
 }
 
 export const Category: React.FC<Props> = ({
@@ -23,6 +26,8 @@ export const Category: React.FC<Props> = ({
   index,
   setSelectedCategoryIndex,
   selectedCategoryIndex,
+  imageSource,
+  isListItem,
 }) => {
   return (
     <TouchableOpacity
@@ -31,20 +36,26 @@ export const Category: React.FC<Props> = ({
         styles.container,
         {
           backgroundColor:
-            index === selectedCategoryIndex ? COLORS.mainColor : "transparent",
+            index === selectedCategoryIndex
+              ? COLORS.black
+              : isListItem
+              ? COLORS.mainColor
+              : "transparent",
         },
       ]}
     >
       <Text style={styles.text}>{text}</Text>
+      {imageSource ? (
+        <Image source={imageSource} style={{ marginLeft: SMALL_SPACING / 4 }} />
+      ) : null}
     </TouchableOpacity>
   );
 };
 
-const { width } = Dimensions.get("screen");
-
 const styles = StyleSheet.create({
   container: {
-    ...globalStyles.center,
+    ...globalStyles.rowBetween,
+    justifyContent: "flex-end",
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderWidth: 1.2,
@@ -53,6 +64,7 @@ const styles = StyleSheet.create({
   },
   text: {
     ...TEXT_12,
+    textAlign: "center",
     color: COLORS.white,
   },
 });

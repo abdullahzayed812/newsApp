@@ -6,11 +6,12 @@
  */
 
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, StatusBar } from "react-native";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { RootStackScreen } from "./routes";
 import { SMALL_SPACING } from "./constants/dimensions";
 import { ErrorToast } from "react-native-toast-message";
+import { COLORS } from "./helpers/colors";
 
 const toastConfig = {
   error: (props: any) => (
@@ -36,6 +37,7 @@ const toastConfig = {
 function App(): JSX.Element {
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar backgroundColor={COLORS.white} />
       <RootStackScreen />
       <Toast
         config={toastConfig}

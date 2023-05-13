@@ -2,13 +2,7 @@ import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { HEADER_1, TEXT_14 } from "../../constants/fonts";
 import { COLORS } from "../../helpers/colors";
-import {
-  LARGE_SPACING,
-  SMALL_SPACING,
-  X_LARGE_SPACING,
-} from "../../constants/dimensions";
-import { Category } from "../global/category";
-import { Button } from "../global/button";
+import { SMALL_SPACING } from "../../constants/dimensions";
 
 export const GreetingBox: React.FC = () => {
   return (

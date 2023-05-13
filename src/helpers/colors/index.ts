@@ -1,5 +1,6 @@
 export const COLORS = {
   mainColor: "#9ABA57",
+  mainMedium: "#70BC0F",
   lightMainColor: "#D8E3B2",
 
   mainGray: "#414332",
@@ -9,7 +10,13 @@ export const COLORS = {
   white: "#fff",
   black: "#000",
 
+  placeholder: "#3C3C43",
+
   statusBarColor1: "#001F1A",
+
+  orange: "#FFE145",
+
+  lightRed: "#9A0101",
 
   lightBlack: "rgba(0, 0, 0, 0.5)",
 
