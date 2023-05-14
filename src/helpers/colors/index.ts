@@ -35,4 +35,6 @@ export const COLORS = {
     color1: "#F9F1C1",
     color2: "#D8F4E6",
   },
+
+  statusBar: "#F7FCF5",
 };

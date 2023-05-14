@@ -1,10 +1,50 @@
 import React from "react";
 import { ContentHeader } from "./contentHeader";
 import { IMAGES } from "../../helpers/images";
-import { StyleSheet, View } from "react-native";
+import { ImageSourcePropType, StyleSheet, View } from "react-native";
 import { SMALL_SPACING } from "../../constants/dimensions";
 import { Card } from "./card";
-import { COLORS } from "../../helpers/colors";
+import { ADS } from "./ads";
+
+interface Item {
+  imageBackgroundSource: ImageSourcePropType;
+  category: string;
+  timeStamp: string;
+  content: string;
+}
+
+const DATA: Item[] = [
+  {
+    imageBackgroundSource: IMAGES.mainCard,
+    category: "رياضة",
+    timeStamp: "منذ 3 ساعات",
+    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
+  },
+  {
+    imageBackgroundSource: IMAGES.mainCard,
+    category: "رياضة",
+    timeStamp: "منذ 3 ساعات",
+    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
+  },
+  {
+    imageBackgroundSource: IMAGES.mainCard,
+    category: "رياضة",
+    timeStamp: "منذ 3 ساعات",
+    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
+  },
+  {
+    imageBackgroundSource: IMAGES.mainCard,
+    category: "رياضة",
+    timeStamp: "منذ 3 ساعات",
+    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
+  },
+  {
+    imageBackgroundSource: IMAGES.mainCard,
+    category: "رياضة",
+    timeStamp: "منذ 3 ساعات",
+    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
+  },
+];
 
 export const LastNews: React.FC = () => {
   return (
@@ -16,7 +56,17 @@ export const LastNews: React.FC = () => {
         timeStamp="منذ 3 ساعات"
         content="عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر"
       />
-      <View style={styles.ads} />
+      <ADS />
+      {DATA.map((item, index) => (
+        <Card
+          cardStyle={styles.cardStyle}
+          key={`Item-${index}-${item.category}`}
+          imageBackgroundSource={item.imageBackgroundSource}
+          category={item.category}
+          timeStamp={item.timeStamp}
+          content={item.content}
+        />
+      ))}
     </View>
   );
 };
@@ -25,12 +75,7 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: SMALL_SPACING / 2,
   },
-  ads: {
-    height: 200,
-    borderWidth: 2,
-    borderColor: COLORS.black,
-    marginVertical: SMALL_SPACING,
-    borderRadius: 10,
-    backgroundColor: COLORS.white,
+  cardStyle: {
+    marginBottom: SMALL_SPACING / 2,
   },
 });

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ViewStyle,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS } from "../../helpers/colors";
@@ -24,6 +25,7 @@ interface Props {
   timeStamp: string;
   content: string;
   isFlatListItem?: boolean;
+  cardStyle?: ViewStyle;
 }
 
 const { width } = Dimensions.get("screen");
@@ -35,11 +37,13 @@ export const Card: React.FC<Props> = ({
   timeStamp,
   content,
   isFlatListItem,
+  cardStyle,
 }) => {
   return (
     <View
       style={[
         styles.container,
+        cardStyle,
         { width: isFlatListItem ? ITEM_WIDTH : "100%" },
       ]}
     >

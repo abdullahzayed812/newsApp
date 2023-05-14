@@ -8,6 +8,7 @@ import { Card } from "../../components/global/card";
 import { Container } from "../../components/global/container";
 import { SubNews } from "../../components/global/subNews";
 import { COLORS } from "../../helpers/colors";
+import { ADS } from "../../components/global/ads";
 
 interface Item {
   text: string;
@@ -39,7 +40,7 @@ export const NewsScreen: React.FC = () => {
             {DATA.map((item, index) => (
               <View style={{ marginRight: SMALL_SPACING / 2 }}>
                 <Category
-                  key={`item-${index}`}
+                  key={index}
                   text={item.text}
                   index={index}
                   selectedCategoryIndex={selectedCategoryIndex}
@@ -51,12 +52,18 @@ export const NewsScreen: React.FC = () => {
             ))}
           </ScrollView>
         </View>
-        <Card
-          imageBackgroundSource={IMAGES.congress}
-          timeStamp="منذ 3 ساعات"
-          content="مايك بيس يدلي بشهادته في تحقيق جنائي بشأن دونالد ترامب"
-        />
-        <SubNews />
+        <ScrollView>
+          <Card
+            imageBackgroundSource={IMAGES.congress}
+            timeStamp="منذ 3 ساعات"
+            content="مايك بيس يدلي بشهادته في تحقيق جنائي بشأن دونالد ترامب"
+          />
+          <SubNews />
+          <ADS />
+          {Array.from({ length: 10 }).map((_, index) => (
+            <SubNews key={index} />
+          ))}
+        </ScrollView>
       </Container>
     </>
   );

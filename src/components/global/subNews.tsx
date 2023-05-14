@@ -1,13 +1,6 @@
 import React from "react";
 import { NewsActions } from "./newsActions";
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { SMALL_SPACING } from "../../constants/dimensions";
 import { IMAGES } from "../../helpers/images";
 import { TEXT_12, TEXT_14 } from "../../constants/fonts";

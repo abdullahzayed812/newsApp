@@ -6,8 +6,8 @@ import { MainStackScreen } from "../stacks/main";
 import { NewsStackScreen } from "../stacks/news";
 import { COLORS } from "../../helpers/colors";
 import { IMAGES } from "../../helpers/images";
-import { ProfileStackScreen } from "../stacks/profile";
-import { TEXT_12 } from "../../constants/fonts";
+import { TEXT_12, TEXT_14 } from "../../constants/fonts";
+import { FakeProfileScreen } from "../../screens/fakeProfile";
 
 const TabStack = createBottomTabNavigator<TabStackScreenParamsList>();
 
@@ -17,10 +17,10 @@ export const TabStackScreen: React.FC = () => {
       initialRouteName="MainStackScreen"
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarLabelStyle: { ...styles.tabBarLabelStyle },
+        tabBarLabelStyle: { fontFamily: "cairo-bold", fontSize: 12 },
         tabBarStyle: { ...styles.tabBarStyle },
         tabBarActiveTintColor: COLORS.mainColor,
-        tabBarInactiveTintColor: COLORS.mediumGray,
+        tabBarInactiveTintColor: COLORS.lightGray,
         tabBarIcon: ({ focused, size }) => {
           let imageSource;
           switch (route.name) {
@@ -30,7 +30,7 @@ export const TabStackScreen: React.FC = () => {
             case "NewsStackScreen":
               imageSource = focused ? IMAGES.newsActive : IMAGES.newsInactive;
               break;
-            case "ProfileStackScreen":
+            case "FakeProfileScreen":
               imageSource = focused ? IMAGES.profileActive : IMAGES.profile;
               break;
           }
@@ -44,8 +44,8 @@ export const TabStackScreen: React.FC = () => {
       })}
     >
       <TabStack.Screen
-        name="ProfileStackScreen"
-        component={ProfileStackScreen}
+        name="FakeProfileScreen"
+        component={FakeProfileScreen}
         options={{ tabBarLabel: "حسابي" }}
       />
       <TabStack.Screen
@@ -68,9 +68,5 @@ const styles = StyleSheet.create({
   tabBarStyle: {
     backgroundColor: "#000",
     height: height * 0.06,
-  },
-  tabBarLabelStyle: {
-    ...TEXT_12,
-    color: COLORS.white,
   },
 });

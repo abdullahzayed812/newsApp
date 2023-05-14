@@ -19,10 +19,11 @@ export type AuthStackScreenParamsList = {
 export type TabStackScreenParamsList = {
   MainStackScreen: NavigatorScreenParams<MainStackScreenParamsList>;
   NewsStackScreen: NavigatorScreenParams<NewsStackScreenParamsList>;
-  ProfileStackScreen: NavigatorScreenParams<ProfileStackScreenParamsList>;
+  FakeProfileScreen: undefined;
 };
 export type RootStackParamList = {
   StartStackScreen: NavigatorScreenParams<StartStackScreenParamList>;
   TabStackScreen: NavigatorScreenParams<TabStackScreenParamsList>;
   AuthStackScreen: NavigatorScreenParams<AuthStackScreenParamsList>;
+  ProfileStackScreen: NavigatorScreenParams<ProfileStackScreenParamsList>;
 };

@@ -5,6 +5,7 @@ import { RootStackParamList } from "./types";
 import { TabStackScreen } from "./tab";
 import { StartStackScreen } from "./stacks/start";
 import { AuthStackScreen } from "./stacks/auth";
+import { ProfileStackScreen } from "./stacks/profile";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,6 +22,10 @@ export const RootStackScreen: React.FC = () => {
         />
         <RootStack.Screen name="TabStackScreen" component={TabStackScreen} />
         <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
+        <RootStack.Screen
+          name="ProfileStackScreen"
+          component={ProfileStackScreen}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
