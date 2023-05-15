@@ -48,8 +48,9 @@ export const ProfileScreen: React.FC = () => {
       >
         <UserInfo />
         <View style={{ paddingRight: SMALL_SPACING * 1.5 }}>
-          {PROFILE_OPTION_DATA.map((option) => (
+          {PROFILE_OPTION_DATA.map((option, index) => (
             <ProfileOption
+              key={`${option.text}-${index}`}
               text={option.text}
               imageSource={option.imageSource}
             />

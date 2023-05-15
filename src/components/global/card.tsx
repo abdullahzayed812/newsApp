@@ -1,11 +1,11 @@
 import React from "react";
 import {
   Dimensions,
-  Image,
   ImageBackground,
   ImageSourcePropType,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
@@ -13,18 +13,20 @@ import LinearGradient from "react-native-linear-gradient";
 import { COLORS } from "../../helpers/colors";
 import { SMALL_SPACING } from "../../constants/dimensions";
 import { globalStyles } from "../../helpers/globalStyles";
-import { TEXT_12 } from "../../constants/fonts";
-import { IMAGES } from "../../helpers/images";
+import { TEXT_12, TEXT_16 } from "../../constants/fonts";
 import { PipeLine } from "./pipeLine";
 import { NewsActions } from "./newsActions";
-import { HEADER_3 } from "../../constants/fonts";
+import { TimeStamp } from "./timeStamp";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NewsStackScreenParamsList } from "../../routes/types";
 
 interface Props {
   imageBackgroundSource: ImageSourcePropType;
   category?: string;
   timeStamp: string;
   content: string;
-  isFlatListItem?: boolean;
+  isMoreWatching?: boolean;
   cardStyle?: ViewStyle;
 }
 
@@ -36,15 +38,19 @@ export const Card: React.FC<Props> = ({
   category,
   timeStamp,
   content,
-  isFlatListItem,
+  isMoreWatching,
   cardStyle,
 }) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
+
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => navigation.navigate("NewsScreen")}
       style={[
         styles.container,
         cardStyle,
-        { width: isFlatListItem ? ITEM_WIDTH : "100%" },
+        { width: isMoreWatching ? ITEM_WIDTH : "100%" },
       ]}
     >
       <ImageBackground
@@ -57,15 +63,16 @@ export const Card: React.FC<Props> = ({
             COLORS.darkGradient.color2,
             COLORS.darkGradient.color3,
           ]}
+          locations={[0.1, 0.5, 1]}
           style={[
             styles.gradient,
-            { width: isFlatListItem ? ITEM_WIDTH : "100%" },
+            { width: isMoreWatching ? ITEM_WIDTH : "100%" },
           ]}
         >
           <View
             style={{
               padding: SMALL_SPACING,
-              paddingTop: isFlatListItem ? SMALL_SPACING : SMALL_SPACING * 5,
+              paddingTop: isMoreWatching ? SMALL_SPACING : SMALL_SPACING * 5,
             }}
           >
             {category ? (
@@ -74,20 +81,15 @@ export const Card: React.FC<Props> = ({
                 <PipeLine backgroundColor={COLORS.orange} />
               </View>
             ) : null}
-            <View style={styles.timeStampContainer}>
-              <Text style={[styles.text, { color: COLORS.mediumGray }]}>
-                {timeStamp}
-              </Text>
-              <Image source={IMAGES.clock} />
-            </View>
-            <Text style={isFlatListItem ? styles.text : styles.bigText}>
+            <TimeStamp text={timeStamp} isCardComponent />
+            <Text style={isMoreWatching ? styles.text : styles.bigText}>
               {content}
             </Text>
             <NewsActions />
           </View>
         </LinearGradient>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   bigText: {
-    ...HEADER_3,
+    ...TEXT_16,
     marginBottom: SMALL_SPACING / 6,
     color: COLORS.white,
   },

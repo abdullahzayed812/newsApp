@@ -49,7 +49,7 @@ const renderItem = (item: FlatListItemProp) => {
       category={item.category}
       timeStamp={item.timeStamp}
       content={item.newsContent}
-      isFlatListItem={true}
+      isMoreWatching={true}
     />
   );
 };

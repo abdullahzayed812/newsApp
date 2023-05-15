@@ -26,7 +26,7 @@ const DATA: Item[] = [
   { text: "رياضة", imageSource: IMAGES.note },
 ];
 
-export const NewsScreen: React.FC = () => {
+export const NewsTabScreen: React.FC = () => {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState<
     number | undefined
   >(undefined);
@@ -40,7 +40,7 @@ export const NewsScreen: React.FC = () => {
             {DATA.map((item, index) => (
               <View style={{ marginRight: SMALL_SPACING / 2 }}>
                 <Category
-                  key={index}
+                  key={`${item.text}-${index}`}
                   text={item.text}
                   index={index}
                   selectedCategoryIndex={selectedCategoryIndex}

@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     paddingRight: SMALL_SPACING,
   },
   button: {
-    width: 350,
+    width: "90%",
     alignSelf: "center",
-    marginTop: 150,
+    transform: [{ translateY: height * 0.15 }],
   },
 });

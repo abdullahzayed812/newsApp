@@ -2,7 +2,7 @@ import { TextStyle } from "react-native";
 import { COLORS } from "../../helpers/colors";
 
 export const HEADER_1: TextStyle = {
-  fontFamily: "cairo-extraBold",
+  fontFamily: "cairo-bold",
   fontSize: 24,
   fontWeight: "700",
   color: COLORS.black,
@@ -14,7 +14,7 @@ export const HEADER_2: TextStyle = {
   color: COLORS.black,
 };
 export const HEADER_3: TextStyle = {
-  fontFamily: "Cairo-Light",
+  fontFamily: "cairo-medium",
   fontSize: 18,
   fontWeight: "700",
   color: COLORS.black,

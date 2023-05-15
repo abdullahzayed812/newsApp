@@ -39,12 +39,19 @@ export const Category: React.FC<Props> = ({
             index === selectedCategoryIndex
               ? COLORS.black
               : isListItem
-              ? COLORS.mainColor
+              ? COLORS.mainCategoryColor
               : "transparent",
         },
       ]}
     >
-      <Text style={styles.text}>{text}</Text>
+      <Text
+        style={[
+          styles.text,
+          { color: isListItem ? COLORS.black : COLORS.white },
+        ]}
+      >
+        {text}
+      </Text>
       {imageSource ? (
         <Image source={imageSource} style={{ marginLeft: SMALL_SPACING / 4 }} />
       ) : null}

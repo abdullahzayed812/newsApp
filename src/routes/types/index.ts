@@ -7,6 +7,7 @@ export type MainStackScreenParamsList = {
   MainScreen: undefined;
 };
 export type NewsStackScreenParamsList = {
+  NewsTabScreen: undefined;
   NewsScreen: undefined;
 };
 export type ProfileStackScreenParamsList = {

@@ -3,6 +3,8 @@ export const COLORS = {
   mainMedium: "#70BC0F",
   lightMainColor: "#D8E3B2",
 
+  mainCategoryColor: "#EFF8E5",
+
   mainGray: "#414332",
   mediumGray: "#92939C",
   lightGray: "#E4E4E5",
@@ -27,7 +29,7 @@ export const COLORS = {
 
   darkGradient: {
     color1: "rgba(0, 0, 0, 0)",
-    color2: "rgba(0, 0, 0, 0.54)",
+    color2: "rgba(0, 0, 0, 0.05)",
     color3: "rgba(0, 0, 0, 1)",
   },
 
