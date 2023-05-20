@@ -6,12 +6,12 @@ import {
   useWindowDimensions,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { COLORS } from "../../helpers/colors";
+import { COLORS } from "../../config/colors";
 import { HeaderBackButton } from "../../components/global/headerBackButton";
 import { UserInfo } from "../../components/global/userInfo";
-import { IMAGES } from "../../helpers/images";
+import { IMAGES } from "../../config/images";
 import { ProfileOption } from "../../components/global/profileOption";
-import { SMALL_SPACING } from "../../constants/dimensions";
+import { SMALL_SPACING } from "../../config/dimensions";
 import { SocialContainer } from "../../components/global/socialContainer";
 
 interface ProfileOptionPropType {
@@ -34,7 +34,7 @@ export const ProfileScreen: React.FC = () => {
   return (
     <>
       <StatusBar backgroundColor={COLORS.statusBar} barStyle="dark-content" />
-      <HeaderBackButton />
+      <HeaderBackButton isProfileScreen />
       <LinearGradient
         colors={[
           COLORS.statusBar,

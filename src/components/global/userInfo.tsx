@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { IMAGES } from "../../helpers/images";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { TEXT_16 } from "../../constants/fonts";
+import { IMAGES } from "../../config/images";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { TEXT_16 } from "../../config/fonts";
 
 export const UserInfo: React.FC = () => {
   return (

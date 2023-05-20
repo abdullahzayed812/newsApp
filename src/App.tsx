@@ -8,10 +8,10 @@
 import React from "react";
 import { SafeAreaView, StatusBar } from "react-native";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { RootStackScreen } from "./routes";
-import { SMALL_SPACING } from "./constants/dimensions";
+import { RootStackScreen } from "./navigation";
+import { SMALL_SPACING } from "./config/dimensions";
 import { ErrorToast } from "react-native-toast-message";
-import { COLORS } from "./helpers/colors";
+import { COLORS } from "./config/colors";
 
 const toastConfig = {
   error: (props: any) => (

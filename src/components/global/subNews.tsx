@@ -3,34 +3,47 @@ import { NewsActions } from "./newsActions";
 import {
   Dimensions,
   Image,
+  ImageSourcePropType,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { IMAGES } from "../../helpers/images";
-import { TEXT_12, TEXT_14 } from "../../constants/fonts";
-import { COLORS } from "../../helpers/colors";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { IMAGES } from "../../config/images";
+import { TEXT_12, TEXT_14 } from "../../config/fonts";
+import { COLORS } from "../../config/colors";
 import { TimeStamp } from "./timeStamp";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { NewsStackScreenParamsList } from "../../routes/types";
+import { NewsStackScreenParamsList } from "../../navigation/types";
 
-export const SubNews: React.FC = () => {
+interface Props {
+  subNewsImageSource: ImageSourcePropType;
+  subNewsContent: string;
+}
+
+export const SubNews: React.FC<Props> = ({
+  subNewsContent,
+  subNewsImageSource,
+}) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
+
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("NewsScreen")}
+      onPress={() =>
+        navigation.navigate("NewsScreen", {
+          newsImage: subNewsImageSource,
+          newsContent: subNewsContent,
+        })
+      }
     >
-      <Image source={IMAGES.subNews} style={{ resizeMode: "cover" }} />
+      <Image source={subNewsImageSource} style={{ resizeMode: "cover" }} />
       <View>
         <TimeStamp text="منذ 10 دقائق" />
-        <Text style={styles.newsText}>
-          السلام عليكم ورحمة الله وبركاته ي اهل الديار
-        </Text>
+        <Text style={styles.newsText}>{subNewsContent}</Text>
         <NewsActions dark />
       </View>
     </TouchableOpacity>

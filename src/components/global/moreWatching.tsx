@@ -7,11 +7,11 @@ import {
   Text,
   View,
 } from "react-native";
-import { IMAGES } from "../../helpers/images";
+import { IMAGES } from "../../config/images";
 import { Card } from "./card";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { globalStyles } from "../../helpers/globalStyles";
-import { TEXT_14 } from "../../constants/fonts";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { globalStyles } from "../../config/globalStyles";
+import { TEXT_14 } from "../../config/fonts";
 import { ContentHeader } from "./contentHeader";
 
 interface FlatListItemProp {

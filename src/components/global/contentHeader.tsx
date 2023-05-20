@@ -6,9 +6,9 @@ import {
   Text,
   View,
 } from "react-native";
-import { TEXT_14 } from "../../constants/fonts";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { globalStyles } from "../../helpers/globalStyles";
+import { TEXT_14 } from "../../config/fonts";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { globalStyles } from "../../config/globalStyles";
 
 interface Props {
   text: string;

@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabStackScreenParamsList } from "../types";
 import { MainStackScreen } from "../stacks/main";
 import { NewsStackScreen } from "../stacks/news";
-import { COLORS } from "../../helpers/colors";
-import { IMAGES } from "../../helpers/images";
-import { TEXT_12, TEXT_14 } from "../../constants/fonts";
+import { COLORS } from "../../config/colors";
+import { IMAGES } from "../../config/images";
+import { TEXT_12, TEXT_14 } from "../../config/fonts";
 import { FakeProfileScreen } from "../../screens/fakeProfile";
 
 const TabStack = createBottomTabNavigator<TabStackScreenParamsList>();

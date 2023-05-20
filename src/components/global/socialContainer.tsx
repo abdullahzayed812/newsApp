@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { TEXT_14 } from "../../constants/fonts";
-import { IMAGES } from "../../helpers/images";
-import { COLORS } from "../../helpers/colors";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { TEXT_14 } from "../../config/fonts";
+import { IMAGES } from "../../config/images";
+import { COLORS } from "../../config/colors";
 
 const SOCIAL_ITEM_DATA: ImageSourcePropType[] = [
   IMAGES.facebook,

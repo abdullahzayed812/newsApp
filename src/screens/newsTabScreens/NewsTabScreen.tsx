@@ -2,12 +2,12 @@ import { ImageSourcePropType, ScrollView, View } from "react-native";
 import { Header } from "../../components/global/header";
 import React from "react";
 import { Category } from "../../components/global/category";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { IMAGES } from "../../helpers/images";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { IMAGES } from "../../config/images";
 import { Card } from "../../components/global/card";
 import { Container } from "../../components/global/container";
 import { SubNews } from "../../components/global/subNews";
-import { COLORS } from "../../helpers/colors";
+import { COLORS } from "../../config/colors";
 import { ADS } from "../../components/global/ads";
 
 interface Item {
@@ -38,9 +38,11 @@ export const NewsTabScreen: React.FC = () => {
         <View style={{ height: 40, marginBottom: SMALL_SPACING / 2 }}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {DATA.map((item, index) => (
-              <View style={{ marginRight: SMALL_SPACING / 2 }}>
+              <View
+                style={{ marginRight: SMALL_SPACING / 2 }}
+                key={`${item.text}-${index}`}
+              >
                 <Category
-                  key={`${item.text}-${index}`}
                   text={item.text}
                   index={index}
                   selectedCategoryIndex={selectedCategoryIndex}
@@ -58,10 +60,17 @@ export const NewsTabScreen: React.FC = () => {
             timeStamp="منذ 3 ساعات"
             content="مايك بيس يدلي بشهادته في تحقيق جنائي بشأن دونالد ترامب"
           />
-          <SubNews />
+          <SubNews
+            subNewsImageSource={IMAGES.subNews}
+            subNewsContent="السلام عليكم ورحمة الله وبركاته، اللهم اصلح بالنا وارزقنا الطاعة الخالصة لوجهك الكريم"
+          />
           <ADS />
           {Array.from({ length: 10 }).map((_, index) => (
-            <SubNews key={index} />
+            <SubNews
+              key={index}
+              subNewsImageSource={IMAGES.subNews}
+              subNewsContent="السلام عليكم ورحمة الله وبركاته، اللهم اصلح بالنا وارزقنا الطاعة الخالصة لوجهك الكريم"
+            />
           ))}
         </ScrollView>
       </Container>

@@ -1,10 +1,10 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { globalStyles } from "../../helpers/globalStyles";
-import { IMAGES } from "../../helpers/images";
-import { TEXT_12 } from "../../constants/fonts";
-import { COLORS } from "../../helpers/colors";
-import { SMALL_SPACING } from "../../constants/dimensions";
+import { globalStyles } from "../../config/globalStyles";
+import { IMAGES } from "../../config/images";
+import { TEXT_12 } from "../../config/fonts";
+import { COLORS } from "../../config/colors";
+import { SMALL_SPACING } from "../../config/dimensions";
 
 interface Props {
   dark?: boolean;

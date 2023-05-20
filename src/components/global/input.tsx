@@ -7,19 +7,23 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import { COLORS } from "../../helpers/colors";
-import { TEXT_14 } from "../../constants/fonts";
+import { COLORS } from "../../config/colors";
+import { TEXT_14 } from "../../config/fonts";
 
 interface Props {
   rightImageSource?: ImageSourcePropType;
-  placeholder: string;
+  placeholder?: string;
   containerStyle?: ViewStyle;
+  inputStyle?: ViewStyle;
+  multiline?: boolean;
 }
 
 export const Input: React.FC<Props> = ({
   rightImageSource,
   placeholder,
   containerStyle,
+  multiline,
+  inputStyle,
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -28,8 +32,9 @@ export const Input: React.FC<Props> = ({
       ) : null}
       <TextInput
         placeholder={placeholder}
-        style={styles.input}
+        style={[styles.input, inputStyle]}
         placeholderTextColor={COLORS.placeholder}
+        multiline={multiline}
       />
     </View>
   );

@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { COLORS } from "../../helpers/colors";
-import { TEXT_12 } from "../../constants/fonts";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { COLORS } from "../../config/colors";
+import { TEXT_12 } from "../../config/fonts";
 import { PipeLine } from "./pipeLine";
 
 export const BreakingNews: React.FC = ({}) => {

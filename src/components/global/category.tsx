@@ -7,10 +7,10 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { BORDER_RADIUS, SMALL_SPACING } from "../../constants/dimensions";
-import { COLORS } from "../../helpers/colors";
-import { TEXT_12, TEXT_14 } from "../../constants/fonts";
-import { globalStyles } from "../../helpers/globalStyles";
+import { BORDER_RADIUS, SMALL_SPACING } from "../../config/dimensions";
+import { COLORS } from "../../config/colors";
+import { TEXT_12, TEXT_14 } from "../../config/fonts";
+import { globalStyles } from "../../config/globalStyles";
 
 interface Props {
   text: string;

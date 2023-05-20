@@ -4,23 +4,29 @@ import {
   ImageSourcePropType,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { COLORS } from "../../helpers/colors";
-import { TEXT_12 } from "../../constants/fonts";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { COLORS } from "../../config/colors";
+import { TEXT_12 } from "../../config/fonts";
 
 interface Props {
   text?: string;
   imageSource: ImageSourcePropType;
+  onPress?: () => void;
 }
 
-export const NewsUserActionsItem: React.FC<Props> = ({ text, imageSource }) => {
+export const NewsUserActionsItem: React.FC<Props> = ({
+  text,
+  imageSource,
+  onPress,
+}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
       <Image source={imageSource} />
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: SMALL_SPACING / 4,
-    paddingVertical: SMALL_SPACING / 1.5,
+    paddingVertical: SMALL_SPACING / 1.4,
     paddingHorizontal: SMALL_SPACING,
     borderRadius: 30,
     backgroundColor: COLORS.mainGray,

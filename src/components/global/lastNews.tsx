@@ -1,8 +1,8 @@
 import React from "react";
 import { ContentHeader } from "./contentHeader";
-import { IMAGES } from "../../helpers/images";
+import { IMAGES } from "../../config/images";
 import { ImageSourcePropType, StyleSheet, View } from "react-native";
-import { SMALL_SPACING } from "../../constants/dimensions";
+import { SMALL_SPACING } from "../../config/dimensions";
 import { Card } from "./card";
 import { ADS } from "./ads";
 

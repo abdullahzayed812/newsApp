@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, useWindowDimensions } from "react-native";
-import { IMAGES } from "../../helpers/images";
+import { IMAGES } from "../../config/images";
 
 export const ADS: React.FC = () => {
   const { width } = useWindowDimensions();

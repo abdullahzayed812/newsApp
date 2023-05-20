@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { TEXT_14 } from "../../constants/fonts";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { TEXT_14 } from "../../config/fonts";
 
 interface Props {
   text: string;

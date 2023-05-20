@@ -1,13 +1,13 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { COLORS } from "../../helpers/colors";
-import { globalStyles } from "../../helpers/globalStyles";
-import { TEXT_12 } from "../../constants/fonts";
+import { COLORS } from "../../config/colors";
+import { globalStyles } from "../../config/globalStyles";
+import { TEXT_12 } from "../../config/fonts";
 import { PipeLine } from "./pipeLine";
-import { IMAGES } from "../../helpers/images";
+import { IMAGES } from "../../config/images";
 
 interface Props {
-  text: string;
+  text: string | undefined;
 }
 
 export const NewsCategoryTitle: React.FC<Props> = ({ text }) => {

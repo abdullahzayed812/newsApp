@@ -10,16 +10,21 @@ import {
   ViewStyle,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { COLORS } from "../../helpers/colors";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { globalStyles } from "../../helpers/globalStyles";
-import { TEXT_12, TEXT_16 } from "../../constants/fonts";
+import { COLORS } from "../../config/colors";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { globalStyles } from "../../config/globalStyles";
+import { TEXT_12, TEXT_16 } from "../../config/fonts";
 import { PipeLine } from "./pipeLine";
 import { NewsActions } from "./newsActions";
 import { TimeStamp } from "./timeStamp";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { NewsStackScreenParamsList } from "../../routes/types";
+import {
+  NewsStackScreenParamsList,
+  RootStackParamList,
+  TabStackScreenParamsList,
+} from "../../navigation/types";
+import { IMAGES } from "../../config/images";
 
 interface Props {
   imageBackgroundSource: ImageSourcePropType;
@@ -42,11 +47,28 @@ export const Card: React.FC<Props> = ({
   cardStyle,
 }) => {
   const navigation =
-    useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
+    useNavigation<NativeStackNavigationProp<TabStackScreenParamsList>>();
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("NewsScreen")}
+      onPress={() =>
+        navigation.navigate("NewsStackScreen", {
+          screen: "NewsScreen",
+          params: {
+            newsImage: imageBackgroundSource,
+            newsHeader: content,
+            newsCategory: category,
+            newsContent: `وتم طرد غابرييل باوليستا مدافع فالنسيا ببطاقة حمراء مباشرة قبل 18 دقيقة على نهاية زمن اللقاء بعد التحام عنيف ضد فينيسيوس كاد أن يتسبب في اندلاع مشاجرة بين اللاعبين على أرض الملعب.
+            وجمع ريال مدريد حامل لقب الدوري الإسباني 45 نقطة في المركز الثاني بالترتيب بفارق خمس نقاط خلف برشلونة المتصدر.
+            ويمر فالنسيا، الذي استغنى عن خدمات مدربه جينارو جاتوسو، بسلسلة مؤلفة من خمس مباريات متتالية دون انتصار ويحتل المركز 14 برصيد 20 نقطة بفارق نقطة واحدة عن منطقة الهبوط.
+            وسجل ريال هدفين في دقيقتين، جاء الأول بتسديدة رائعة من أسينسيو سكنت في الزاوية العليا للمرمى في الدقيقة 52 تبعتها تسجيل فينيسيوس لهدف من مسافة قريبة منهيا هجمة مرتدة سريعة وخاطفة.
+            وسيطر الريال على بقية المباراة ضد منافسه الذي ظهر إحباطه من خلال الالتحام المتهور من باوليستا ضد فينيسيوس.
+            وقال تيبو كورتوا حارس مرمى ريال مدريد لمنصة دازن "نحن بحاجة لحماية فينيسيوس. إنه لاعب سريع للغاية ومفعم بالحيوية ويستخدم الكثير من المراوغة. المدافعون لا يحبون ذلك. يشعرون أنهم يتعرضون للاستفزاز، لكنها طريقته في اللعب".
+            وأضاف: "أنا سعيد لأن حكم مباراة اليوم كان لديه الشجاعة لإظهار البطاقة الحمراء لأنه تدخل بدون الكرة ولا طائل منه. ليس فقط من أجل فيني، ولكن لأجل أي لاعب آخر".
+            وكان النادي الملكي تعادل سلبا مع ريال سوسييداد نهاية الأسبوع الماضي ليهدر نقطتين ثمينتين في صراعه مع غريمه برشلونة المتصدر الذي فاز الأربعاء على مضيفه ريال بيتيس 2-1 في مباراة مؤجلة.`,
+          },
+        })
+      }
       style={[
         styles.container,
         cardStyle,

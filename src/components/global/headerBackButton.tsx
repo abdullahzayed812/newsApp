@@ -1,31 +1,42 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { IMAGES } from "../../helpers/images";
-import { TEXT_16 } from "../../constants/fonts";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { COLORS } from "../../helpers/colors";
+import { IMAGES } from "../../config/images";
+import { TEXT_16 } from "../../config/fonts";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { COLORS } from "../../config/colors";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { TabStackScreenParamsList } from "../../routes/types";
+import { TabStackScreenParamsList } from "../../navigation/types";
 
 interface Props {
   title?: string;
+  isProfileScreen?: boolean;
 }
 
-export const HeaderBackButton: React.FC<Props> = ({ title }) => {
+export const HeaderBackButton: React.FC<Props> = ({
+  title,
+  isProfileScreen,
+}) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<TabStackScreenParamsList>>();
 
+  const handleBackButtonPress = () => {
+    if (isProfileScreen) {
+      navigation.navigate("MainStackScreen", { screen: "MainScreen" });
+    } else {
+      navigation.navigate("NewsStackScreen", { screen: "NewsTabScreen" });
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {title ? <Text style={TEXT_16}>{title}</Text> : null}
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("MainStackScreen", { screen: "MainScreen" })
-        }
+        onPress={handleBackButtonPress}
+        style={styles.imageContainer}
       >
         <Image source={IMAGES.backDark} />
       </TouchableOpacity>
+      {title ? <Text style={TEXT_16}>{title}</Text> : null}
     </View>
   );
 };
@@ -37,5 +48,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SMALL_SPACING,
     paddingVertical: SMALL_SPACING,
     backgroundColor: COLORS.statusBar,
+  },
+  imageContainer: {
+    marginLeft: SMALL_SPACING / 2,
   },
 });

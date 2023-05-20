@@ -1,8 +1,8 @@
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 import { Input } from "./input";
-import { IMAGES } from "../../helpers/images";
-import { globalStyles } from "../../helpers/globalStyles";
-import { COLORS } from "../../helpers/colors";
+import { IMAGES } from "../../config/images";
+import { globalStyles } from "../../config/globalStyles";
+import { COLORS } from "../../config/colors";
 
 export const Header: React.FC = () => {
   return (

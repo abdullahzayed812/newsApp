@@ -1,4 +1,5 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
+import { ImageSourcePropType } from "react-native/types";
 
 export type StartStackScreenParamList = {
   StartScreen: undefined;
@@ -8,7 +9,12 @@ export type MainStackScreenParamsList = {
 };
 export type NewsStackScreenParamsList = {
   NewsTabScreen: undefined;
-  NewsScreen: undefined;
+  NewsScreen: {
+    newsImage: ImageSourcePropType;
+    newsHeader?: string;
+    newsCategory?: string | undefined;
+    newsContent: string;
+  };
 };
 export type ProfileStackScreenParamsList = {
   ProfileScreen: undefined;
@@ -27,4 +33,5 @@ export type RootStackParamList = {
   TabStackScreen: NavigatorScreenParams<TabStackScreenParamsList>;
   AuthStackScreen: NavigatorScreenParams<AuthStackScreenParamsList>;
   ProfileStackScreen: NavigatorScreenParams<ProfileStackScreenParamsList>;
+  CommentScreen: undefined;
 };

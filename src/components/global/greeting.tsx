@@ -1,8 +1,8 @@
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import { HEADER_1, TEXT_14 } from "../../constants/fonts";
-import { COLORS } from "../../helpers/colors";
-import { SMALL_SPACING } from "../../constants/dimensions";
+import { HEADER_1, TEXT_14 } from "../../config/fonts";
+import { COLORS } from "../../config/colors";
+import { SMALL_SPACING } from "../../config/dimensions";
 
 export const GreetingBox: React.FC = () => {
   return (

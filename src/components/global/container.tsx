@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { StyleSheet, View, ViewStyle } from "react-native";
-import { COLORS } from "../../helpers/colors";
-import { SMALL_SPACING } from "../../constants/dimensions";
+import { COLORS } from "../../config/colors";
+import { SMALL_SPACING } from "../../config/dimensions";
 
 interface Props {
   containerStyle?: ViewStyle;

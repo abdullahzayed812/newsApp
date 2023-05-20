@@ -1,9 +1,9 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { SMALL_SPACING } from "../../constants/dimensions";
-import { IMAGES } from "../../helpers/images";
-import { TEXT_12 } from "../../constants/fonts";
-import { COLORS } from "../../helpers/colors";
+import { SMALL_SPACING } from "../../config/dimensions";
+import { IMAGES } from "../../config/images";
+import { TEXT_12 } from "../../config/fonts";
+import { COLORS } from "../../config/colors";
 
 interface Props {
   text: string;
@@ -17,7 +17,7 @@ export const TimeStamp: React.FC<Props> = ({ text, isCardComponent }) => {
       <Text
         style={[
           styles.time,
-          { color: isCardComponent ? COLORS.lightGray : COLORS.mainGray },
+          { color: isCardComponent ? COLORS.lightGray : COLORS.mediumGray },
         ]}
       >
         {text}

@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { RootStackParamList } from "../../routes/types";
+import { RootStackParamList } from "../../navigation/types";
 import { useFocusEffect } from "@react-navigation/native";
 
 interface Props {

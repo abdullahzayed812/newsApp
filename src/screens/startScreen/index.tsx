@@ -7,16 +7,16 @@ import {
   ToastAndroid,
   View,
 } from "react-native";
-import { IMAGES } from "../../helpers/images";
-import { globalStyles } from "../../helpers/globalStyles";
-import { COLORS } from "../../helpers/colors";
+import { IMAGES } from "../../config/images";
+import { globalStyles } from "../../config/globalStyles";
+import { COLORS } from "../../config/colors";
 import LinearGradient from "react-native-linear-gradient";
 import { GreetingBox } from "../../components/startScreenComponents/greeting";
-import { SMALL_SPACING } from "../../constants/dimensions";
+import { SMALL_SPACING } from "../../config/dimensions";
 import { Category } from "../../components/global/category";
 import { Button } from "../../components/global/button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../routes/types";
+import { RootStackParamList } from "../../navigation/types";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 interface Props {

@@ -38,4 +38,9 @@ export const IMAGES = {
   youtube: require("../../../assets/images/youtube.png"),
   twitter: require("../../../assets/images/twitter.png"),
   instagram: require("../../../assets/images/instagram.png"),
+  newsImage: require("../../../assets/images/newsImg.png"),
+  message: require("../../../assets/images/message.png"),
+  messageAdd: require("../../../assets/images/messageAdd.png"),
+  share2: require("../../../assets/images/share2.png"),
+  close: require("../../../assets/images/close.png"),
 };

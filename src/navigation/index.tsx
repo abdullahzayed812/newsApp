@@ -6,6 +6,7 @@ import { TabStackScreen } from "./tab";
 import { StartStackScreen } from "./stacks/start";
 import { AuthStackScreen } from "./stacks/auth";
 import { ProfileStackScreen } from "./stacks/profile";
+import { CommentScreen } from "../screens/commentSceen";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -26,6 +27,7 @@ export const RootStackScreen: React.FC = () => {
           name="ProfileStackScreen"
           component={ProfileStackScreen}
         />
+        <RootStack.Screen name="CommentScreen" component={CommentScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
