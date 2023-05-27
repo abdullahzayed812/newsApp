@@ -1,8 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NewsStackScreenParamsList } from "../../types";
-import { NewsTabScreen } from "../../../screens/newsTabScreens/NewsTabScreen";
-import { NewsScreen } from "../../../screens/newsTabScreens/NewsScreen";
+import { NewsTabScreen } from "../../../views/NewsTabScreen";
+import { NewsScreen } from "../../../views/NewsScreen";
 
 const NewsStack = createNativeStackNavigator<NewsStackScreenParamsList>();
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StartScreen } from "../../../screens/startScreen";
 import { StartStackScreenParamList } from "../../types";
+import { StartScreen } from "../../../views/StartScreen";
 
 const StartStack = createNativeStackNavigator<StartStackScreenParamList>();
 

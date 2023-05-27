@@ -9,12 +9,7 @@ export type MainStackScreenParamsList = {
 };
 export type NewsStackScreenParamsList = {
   NewsTabScreen: undefined;
-  NewsScreen: {
-    newsImage: ImageSourcePropType;
-    newsHeader?: string;
-    newsCategory?: string | undefined;
-    newsContent: string;
-  };
+  NewsScreen: { newsID: number | undefined };
 };
 export type ProfileStackScreenParamsList = {
   ProfileScreen: undefined;

@@ -12,12 +12,12 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  rowCenter: {
+  alignCenter: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
-  rowBetween: {
+  justifyBetween: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

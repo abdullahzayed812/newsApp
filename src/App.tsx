@@ -12,6 +12,8 @@ import { RootStackScreen } from "./navigation";
 import { SMALL_SPACING } from "./config/dimensions";
 import { ErrorToast } from "react-native-toast-message";
 import { COLORS } from "./config/colors";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 const toastConfig = {
   error: (props: any) => (
@@ -38,7 +40,9 @@ function App(): JSX.Element {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor={COLORS.white} />
-      <RootStackScreen />
+      <Provider store={store}>
+        <RootStackScreen />
+      </Provider>
       <Toast
         config={toastConfig}
         position="bottom"

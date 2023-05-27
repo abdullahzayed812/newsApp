@@ -1,0 +1,78 @@
+import React from "react";
+import { NewsActions } from "./NewsActions";
+import {
+  Dimensions,
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { TimeStamp } from "./TimeStamp";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NewsStackScreenParamsList } from "../navigation/types";
+import { SMALL_SPACING } from "../config/dimensions";
+import { TEXT_12, TEXT_14 } from "../config/fonts";
+import { COLORS } from "../config/colors";
+interface Props {
+  newsID?: number | undefined;
+  subNewsImageSource: ImageSourcePropType;
+  subNewsContent: string | undefined;
+}
+
+export const SubNews: React.FC<Props> = ({
+  newsID,
+  subNewsContent,
+  subNewsImageSource,
+}) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
+
+  return (
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate("NewsScreen", { newsID })}
+    >
+      {subNewsImageSource ? (
+        <Image source={subNewsImageSource} style={styles.image} />
+      ) : null}
+      <View>
+        <Text style={styles.newsText}>{subNewsContent}</Text>
+        <NewsActions dark />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const { width } = Dimensions.get("screen");
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    gap: SMALL_SPACING / 2,
+    marginVertical: SMALL_SPACING / 2,
+  },
+
+  timeStamp: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+  },
+  time: {
+    ...TEXT_12,
+    marginRight: SMALL_SPACING / 4,
+    color: COLORS.mainGray,
+  },
+  newsText: {
+    ...TEXT_14,
+    width: width * 0.6,
+  },
+  image: {
+    width: 130,
+    height: 110,
+    resizeMode: "contain",
+    borderRadius: SMALL_SPACING,
+  },
+});

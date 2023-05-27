@@ -6,8 +6,7 @@ import { MainStackScreen } from "../stacks/main";
 import { NewsStackScreen } from "../stacks/news";
 import { COLORS } from "../../config/colors";
 import { IMAGES } from "../../config/images";
-import { TEXT_12, TEXT_14 } from "../../config/fonts";
-import { FakeProfileScreen } from "../../screens/fakeProfile";
+import { FakeProfileScreen } from "../../views/FakeProfileScreen";
 
 const TabStack = createBottomTabNavigator<TabStackScreenParamsList>();
 

@@ -6,7 +6,7 @@ import { TabStackScreen } from "./tab";
 import { StartStackScreen } from "./stacks/start";
 import { AuthStackScreen } from "./stacks/auth";
 import { ProfileStackScreen } from "./stacks/profile";
-import { CommentScreen } from "../screens/commentSceen";
+import { CommentScreen } from "../views/CommentScreen";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
