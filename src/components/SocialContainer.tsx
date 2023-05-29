@@ -24,8 +24,8 @@ export const SocialContainer: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.text}>تابعنا على</Text>
       <View style={styles.socialContainer}>
-        {SOCIAL_ITEM_DATA.map((imageSource) => (
-          <TouchableOpacity>
+        {SOCIAL_ITEM_DATA.map((imageSource, index) => (
+          <TouchableOpacity key={index}>
             <Image source={imageSource} />
           </TouchableOpacity>
         ))}

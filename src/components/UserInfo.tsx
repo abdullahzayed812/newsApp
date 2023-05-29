@@ -2,9 +2,14 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { IMAGES } from "../config/images";
 import { SMALL_SPACING } from "../config/dimensions";
 import { TEXT_16 } from "../config/fonts";
-export const UserInfo: React.FC = () => {
+
+interface Props {
+  onPress?: () => void;
+}
+
+export const UserInfo: React.FC<Props> = ({ onPress }) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={IMAGES.user} />
 
       <Text style={styles.text}>انقر لتسجيل الدخول</Text>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { NewsActions } from "./NewsActions";
 import {
   Dimensions,
@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { TimeStamp } from "./TimeStamp";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { NewsStackScreenParamsList } from "../navigation/types";
@@ -30,18 +29,24 @@ export const SubNews: React.FC<Props> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
 
+  const renderNewsImage = subNewsImageSource ? (
+    <Image source={subNewsImageSource} style={styles.image} />
+  ) : null;
+
+  const renderSubNewsContent = (
+    <View>
+      <Text style={styles.newsText}>{subNewsContent}</Text>
+      <NewsActions dark />
+    </View>
+  );
+
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => navigation.navigate("NewsScreen", { newsID })}
     >
-      {subNewsImageSource ? (
-        <Image source={subNewsImageSource} style={styles.image} />
-      ) : null}
-      <View>
-        <Text style={styles.newsText}>{subNewsContent}</Text>
-        <NewsActions dark />
-      </View>
+      {renderNewsImage}
+      {renderSubNewsContent}
     </TouchableOpacity>
   );
 };

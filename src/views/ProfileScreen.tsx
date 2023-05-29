@@ -13,6 +13,12 @@ import { UserInfo } from "../components/UserInfo";
 import { SMALL_SPACING } from "../config/dimensions";
 import { ProfileOption } from "../components/ProfileOption";
 import { SocialContainer } from "../components/SocialContainer";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigation/types";
+
+interface Props {
+  navigation: NativeStackNavigationProp<RootStackParamList>;
+}
 
 interface ProfileOptionPropType {
   text: string;
@@ -28,13 +34,12 @@ const PROFILE_OPTION_DATA: ProfileOptionPropType[] = [
   { text: "هيئة التحرير", imageSource: IMAGES.box },
 ];
 
-export const ProfileScreen: React.FC = () => {
+export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
 
   return (
     <>
       <StatusBar backgroundColor={COLORS.statusBar} barStyle="dark-content" />
-      <HeaderBackButton isProfileScreen />
       <LinearGradient
         colors={[
           COLORS.statusBar,
@@ -46,7 +51,12 @@ export const ProfileScreen: React.FC = () => {
         locations={[0.04, 0.5, 1]}
         style={{ width, height }}
       >
-        <UserInfo />
+        <HeaderBackButton isProfileScreen />
+        <UserInfo
+          onPress={() =>
+            navigation.navigate("AuthStackScreen", { screen: "SignInUpScreen" })
+          }
+        />
         <View style={{ paddingRight: SMALL_SPACING * 1.5 }}>
           {PROFILE_OPTION_DATA.map((option, index) => (
             <ProfileOption

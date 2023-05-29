@@ -41,4 +41,6 @@ export const COLORS = {
   statusBar: "#F7FCF5",
 
   commentInput: "#EAF2F8",
+
+  darkAuthHeader: "#091420",
 };

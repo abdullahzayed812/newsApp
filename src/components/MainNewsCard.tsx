@@ -44,6 +44,17 @@ export const MainNewsCard: React.FC<Props> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<TabStackScreenParamsList>>();
 
+  const renderCategoryNews = category ? (
+    <View style={styles.categoryContainer}>
+      <Text style={styles.text}>{category}</Text>
+      <PipeLine backgroundColor={COLORS.orange} />
+    </View>
+  ) : null;
+
+  const renderCategoryContent = (
+    <Text style={isMoreWatching ? styles.text : styles.bigText}>{content}</Text>
+  );
+
   return (
     <TouchableOpacity
       onPress={() =>
@@ -82,15 +93,8 @@ export const MainNewsCard: React.FC<Props> = ({
               paddingTop: isMoreWatching ? SMALL_SPACING : SMALL_SPACING * 5,
             }}
           >
-            {category ? (
-              <View style={styles.categoryContainer}>
-                <Text style={styles.text}>{category}</Text>
-                <PipeLine backgroundColor={COLORS.orange} />
-              </View>
-            ) : null}
-            <Text style={isMoreWatching ? styles.text : styles.bigText}>
-              {content}
-            </Text>
+            {renderCategoryNews}
+            {renderCategoryContent}
             <NewsActions />
           </View>
         </LinearGradient>

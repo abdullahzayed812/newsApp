@@ -4,6 +4,7 @@ import {
   ImageSourcePropType,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
@@ -16,6 +17,7 @@ interface Props {
   text: string;
   onPress: () => void;
   buttonImageSource?: ImageSourcePropType;
+  textStyle?: TextStyle;
 }
 
 export const Button: React.FC<Props> = ({
@@ -23,10 +25,11 @@ export const Button: React.FC<Props> = ({
   text,
   onPress,
   buttonImageSource,
+  textStyle,
 }) => {
   return (
     <TouchableOpacity style={[styles.container, buttonStyle]} onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, textStyle]}>{text}</Text>
       {buttonImageSource ? (
         <Image source={buttonImageSource} style={styles.image} />
       ) : null}

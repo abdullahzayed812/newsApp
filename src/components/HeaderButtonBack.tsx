@@ -1,7 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import { TabStackScreenParamsList } from "../navigation/types";
 import { IMAGES } from "../config/images";
 import { TEXT_16 } from "../config/fonts";
@@ -11,11 +18,15 @@ import { COLORS } from "../config/colors";
 interface Props {
   title?: string;
   isProfileScreen?: boolean;
+  backgroundColor?: string;
+  paddingTop?: number;
 }
 
 export const HeaderBackButton: React.FC<Props> = ({
   title,
   isProfileScreen,
+  backgroundColor,
+  paddingTop,
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<TabStackScreenParamsList>>();
@@ -29,7 +40,7 @@ export const HeaderBackButton: React.FC<Props> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor, paddingTop }]}>
       <TouchableOpacity
         onPress={handleBackButtonPress}
         style={styles.imageContainer}

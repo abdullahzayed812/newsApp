@@ -15,8 +15,7 @@ export type ProfileStackScreenParamsList = {
   ProfileScreen: undefined;
 };
 export type AuthStackScreenParamsList = {
-  SignUpScreen: undefined;
-  SignInScreen: undefined;
+  SignInUpScreen: undefined;
 };
 export type TabStackScreenParamsList = {
   MainStackScreen: NavigatorScreenParams<MainStackScreenParamsList>;
