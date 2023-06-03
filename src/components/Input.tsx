@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
   Image,
   ImageSourcePropType,
@@ -16,6 +16,8 @@ interface Props {
   containerStyle?: ViewStyle;
   inputStyle?: ViewStyle;
   multiline?: boolean;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
 }
 
 export const Input: React.FC<Props> = ({
@@ -24,6 +26,8 @@ export const Input: React.FC<Props> = ({
   containerStyle,
   multiline,
   inputStyle,
+  value,
+  setValue,
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -35,6 +39,8 @@ export const Input: React.FC<Props> = ({
         style={[styles.input, inputStyle]}
         placeholderTextColor={COLORS.placeholder}
         multiline={multiline}
+        value={value}
+        onChangeText={(text) => setValue(text)}
       />
     </View>
   );

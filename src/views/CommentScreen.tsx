@@ -1,80 +1,64 @@
 import React from "react";
 import { HeaderBackButton } from "../components/HeaderButtonBack";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import { SMALL_SPACING } from "../config/dimensions";
 import { Comment } from "../components/Comment";
 import { Button } from "../components/Button";
 import { IMAGES } from "../config/images";
 import { CommentModal } from "../components/CommentModal";
+import { RouteProp } from "@react-navigation/native";
+import { RootStackParamList } from "../navigation/types";
+import { TEXT_12 } from "../config/fonts";
 
-interface CommentListItemProp {
-  username: string;
-  timeStamp: string;
-  content: string;
+export interface CommentListItemProp {
+  name: string;
+  comment: string;
+  created_at: string;
 }
 
-export const CommentScreen: React.FC = () => {
+interface Props {
+  route: RouteProp<RootStackParamList, "CommentScreen">;
+}
+
+export const CommentScreen: React.FC<Props> = ({ route }) => {
+  const [commentsList, setCommentsList] = React.useState<CommentListItemProp[]>(
+    [],
+  );
+
   const [showCommentModal, setShowCommentModal] =
     React.useState<boolean>(false);
-  const [comment, setComment] = React.useState<string>("");
+  const [commentValue, setCommentValue] = React.useState<string>("");
 
-  const COMMENT_LIST_DATA: CommentListItemProp[] = [
-    {
-      username: "حسين ناصر",
-      timeStamp: "15 دقيقة",
-      content:
-        "ما دام رئيس التحرير بالصحيفة الاعلامي أحمد الخبراني .. الصحيفة راح تنافس ويكون لها حضور مميز.. الله يوفقكم.",
-    },
-    {
-      username: "محمد مشرف",
-      timeStamp: "15 دقيقة",
-      content:
-        "ما دام رئيس التحرير بالصحيفة الاعلامي أحمد الخبراني .. الصحيفة راح تنافس ويكون لها حضور مميز.. الله يوفقكم.",
-    },
-    {
-      username: "محمد الشريق",
-      timeStamp: "15 دقيقة",
-      content:
-        "ما دام رئيس التحرير بالصحيفة الاعلامي أحمد الخبراني .. الصحيفة راح تنافس ويكون لها حضور مميز.. الله يوفقكم.",
-    },
-    {
-      username: "أسامة الزيرو",
-      timeStamp: "15 دقيقة",
-      content:
-        "ما دام رئيس التحرير بالصحيفة الاعلامي أحمد الخبراني .. الصحيفة راح تنافس ويكون لها حضور مميز.. الله يوفقكم.",
-    },
-    {
-      username: "محمد الدسوقي",
-      timeStamp: "15 دقيقة",
-      content:
-        "ما دام رئيس التحرير بالصحيفة الاعلامي أحمد الخبراني .. الصحيفة راح تنافس ويكون لها حضور مميز.. الله يوفقكم.",
-    },
-    {
-      username: "اسلام هشام",
-      timeStamp: "15 دقيقة",
-      content:
-        "ما دام رئيس التحرير بالصحيفة الاعلامي أحمد الخبراني .. الصحيفة راح تنافس ويكون لها حضور مميز.. الله يوفقكم.",
-    },
-    {
-      username: "حسين ناصر",
-      timeStamp: "15 دقيقة",
-      content:
-        "ما دام رئيس التحرير بالصحيفة الاعلامي أحمد الخبراني .. الصحيفة راح تنافس ويكون لها حضور مميز.. الله يوفقكم.",
-    },
-  ];
+  const { comments, newsID } = route.params;
+
+  React.useEffect(() => {
+    setCommentsList(comments);
+  }, []);
 
   return (
     <>
       <HeaderBackButton title="التعليقات" />
       <ScrollView contentContainerStyle={{ paddingBottom: SMALL_SPACING * 4 }}>
-        {COMMENT_LIST_DATA.map(({ username, timeStamp, content }, index) => (
-          <Comment
-            key={index}
-            username={username}
-            timeStamp={timeStamp}
-            content={content}
-          />
-        ))}
+        {commentsList.length > 0 ? (
+          commentsList.map(({ name, comment, created_at }, index) => (
+            <Comment
+              key={index}
+              username={name}
+              timeStamp={created_at}
+              content={comment}
+            />
+          ))
+        ) : (
+          <Text
+            style={{
+              ...TEXT_12,
+              textAlign: "center",
+              marginBottom: SMALL_SPACING,
+            }}
+          >
+            No Comments...
+          </Text>
+        )}
       </ScrollView>
       <Button
         text="إضافة تعليق"
@@ -83,8 +67,11 @@ export const CommentScreen: React.FC = () => {
         onPress={() => setShowCommentModal(true)}
       />
       <CommentModal
-        comment={comment}
-        setComment={setComment}
+        commentsList={commentsList}
+        setCommentsList={setCommentsList}
+        newsID={newsID}
+        comment={commentValue}
+        setComment={setCommentValue}
         isOpen={showCommentModal}
         setIsOpen={setShowCommentModal}
       />

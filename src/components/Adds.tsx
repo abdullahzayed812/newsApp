@@ -1,17 +1,22 @@
 import React from "react";
-import { Image, useWindowDimensions } from "react-native";
+import { Image, ImageSourcePropType, useWindowDimensions } from "react-native";
 import { IMAGES } from "../config/images";
 
-export const ADS: React.FC = () => {
+interface Props {
+  adsImageSource?: ImageSourcePropType;
+}
+
+export const ADS: React.FC<Props> = ({ adsImageSource }) => {
   const { width } = useWindowDimensions();
 
-  return (
+  return adsImageSource ? (
     <Image
-      source={IMAGES.ads}
+      source={adsImageSource}
       style={{
         width: width * 0.95,
+        height: 100,
         resizeMode: "contain",
       }}
     />
-  );
+  ) : null;
 };

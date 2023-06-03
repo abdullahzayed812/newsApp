@@ -1,4 +1,4 @@
-import { ImageSourcePropType, ScrollView, View } from "react-native";
+import { ImageSourcePropType, ScrollView, StatusBar, View } from "react-native";
 import { IMAGES } from "../config/images";
 import React from "react";
 import { COLORS } from "../config/colors";
@@ -16,6 +16,8 @@ import {
   getPopularPosts,
   getPost,
 } from "../redux/popularPost/popularPostSlice";
+import { getPostsByCategoryID } from "../redux/postsByCategory";
+import { getAdvertisement, getAdvertisements } from "../redux/advertisement";
 
 interface Item {
   text: string;
@@ -36,39 +38,47 @@ const CATEGORY_IMAGE: ImageSourcePropType[] = [
 export const NewsTabScreen: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState<
-    number | undefined
-  >(undefined);
-
-  const { loading: loadingCategories, categories } =
-    useAppSelector(getAllCategories);
-
-  const { loading: loadingPopularPosts, popularPosts } =
+  const categoriesRef = React.useRef<ScrollView>(null);
+  const { categories } = useAppSelector(getAllCategories);
+  const { loading: popularPostsLoading, popularPosts } =
     useAppSelector(getPost);
+  const { categoryID } = useAppSelector((state) => state.categories);
+
+  const { loading: postsByCategoryIDLoading, postsByCategoryID } =
+    useAppSelector((state) => state.postsByCategory);
+
+  const { loading: advertisementLoading, advertisement } =
+    useAppSelector(getAdvertisements);
 
   React.useEffect(() => {
-    (async () => await getPopularPosts(dispatch))();
+    categoriesRef?.current?.scrollToEnd({ animated: false });
+  }, [categoriesRef.current]);
+
+  React.useEffect(() => {
+    (async () => {
+      await getPopularPosts(dispatch);
+    })();
   }, []);
 
+  React.useEffect(() => {
+    (async () => {
+      await getPostsByCategoryID(dispatch, categoryID);
+    })();
+  }, [categoryID]);
+
   const createCategories = () => {
-    return loadingCategories ? (
-      <Loading />
-    ) : (
-      categories.map((category, index) => (
-        <Category
-          index={index}
-          key={`${category.id}-${category.key}`}
-          text={category.name}
-          onPress={setSelectedCategoryIndex}
-          selectedCategoryIndex={selectedCategoryIndex}
-          imageSource={CATEGORY_IMAGE[index]}
-        />
-      ))
-    );
+    return categories.map((category, index) => (
+      <Category
+        index={index}
+        key={`${category.id}-${category.key}`}
+        text={category.name}
+        imageSource={CATEGORY_IMAGE[index]}
+      />
+    ));
   };
 
   const createMainPopularPost = () => {
-    return loadingPopularPosts ? (
+    return popularPostsLoading ? (
       <Loading />
     ) : (
       <MainNewsCard
@@ -80,15 +90,13 @@ export const NewsTabScreen: React.FC = () => {
   };
 
   const createSubNews = () => {
-    return loadingPopularPosts ? (
+    return popularPostsLoading ? (
       <Loading />
     ) : (
       <SubNews
         newsID={popularPosts[1]?.id}
         subNewsContent={popularPosts[1]?.name}
-        subNewsImageSource={{
-          uri: popularPosts[1]?.image,
-        }}
+        subNewsImageSource={popularPosts[1]?.image}
       />
     );
   };
@@ -96,23 +104,49 @@ export const NewsTabScreen: React.FC = () => {
   return (
     <>
       <Header />
+      <View
+        style={{
+          height: 35,
+          backgroundColor: "white",
+        }}
+      >
+        <ScrollView
+          ref={categoriesRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            flexDirection: "row-reverse",
+            justifyContent: "flex-end",
+          }}
+        >
+          {createCategories()}
+        </ScrollView>
+      </View>
       <Container containerStyle={{ backgroundColor: COLORS.white }}>
-        <View style={{ height: 40, marginBottom: SMALL_SPACING / 2 }}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {createCategories()}
-          </ScrollView>
-        </View>
         <ScrollView>
           {createMainPopularPost()}
           {createSubNews()}
-          <ADS />
-          {Array.from({ length: 10 }).map((_, index) => (
-            <SubNews
-              key={index}
-              subNewsImageSource={IMAGES.subNews}
-              subNewsContent="السلام عليكم ورحمة الله وبركاته، اللهم اصلح بالنا وارزقنا الطاعة الخالصة لوجهك الكريم"
+          {advertisementLoading ? (
+            <Loading />
+          ) : (
+            <ADS
+              adsImageSource={{
+                uri: `https://newspens.sa${advertisement?.position_2}`,
+              }}
             />
-          ))}
+          )}
+          {postsByCategoryIDLoading ? (
+            <Loading />
+          ) : (
+            postsByCategoryID.map((item, index) => (
+              <SubNews
+                key={index}
+                newsID={item.id}
+                subNewsImageSource={item.image}
+                subNewsContent={item.name}
+              />
+            ))
+          )}
         </ScrollView>
       </Container>
     </>

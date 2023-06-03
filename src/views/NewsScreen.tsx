@@ -15,11 +15,13 @@ import { NewsCategoryTitle } from "../components/NewsCategoryTitle";
 import { TimeStamp } from "../components/TimeStamp";
 import { NewsUserActions } from "../components/NewsUserActions";
 import { SMALL_SPACING } from "../config/dimensions";
-import { HEADER_3, TEXT_14 } from "../config/fonts";
+import { HEADER_3, TEXT_14, TEXT_16 } from "../config/fonts";
 import { COLORS } from "../config/colors";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getNews, getSingleNews } from "../redux/singleNews/singleNewsSlice";
 import { Loading } from "../components/Loading";
+import { getAdvertisements } from "../redux/advertisement";
+import { SubNews } from "../components/SubNews";
 
 interface Props {
   route: RouteProp<NewsStackScreenParamsList, "NewsScreen">;
@@ -31,6 +33,8 @@ export const NewsScreen: React.FC<Props> = ({ route }) => {
   const { newsID } = route.params;
 
   const { singleNews, loading: loadingSingleNews } = useAppSelector(getNews);
+
+  // const { advertisement } = useAppSelector(getAdvertisements);
 
   React.useEffect(() => {
     (async () => await getSingleNews(dispatch, newsID))();
@@ -46,14 +50,38 @@ export const NewsScreen: React.FC<Props> = ({ route }) => {
           <>
             <View style={styles.container}>
               <NewsCategoryTitle text={singleNews?.category_name} />
+              <TimeStamp text={singleNews?.created_at} />
               <Text style={styles.newsText}>{singleNews?.name}</Text>
             </View>
             {singleNews?.image ? (
               <Image source={{ uri: singleNews?.image }} style={styles.image} />
             ) : null}
-            <NewsUserActions />
+            <NewsUserActions
+              newsID={singleNews.id}
+              newsLikes={singleNews.likes}
+              newsDislikes={singleNews.dislikes}
+              comments={singleNews?.comments}
+            />
             <Text style={styles.content}>{singleNews?.content}</Text>
-            <ADS />
+            {/* add ads here */}
+            <Text
+              style={{
+                ...TEXT_16,
+                marginVertical: SMALL_SPACING,
+                paddingRight: SMALL_SPACING / 2,
+              }}
+            >
+              أخبار ذات صلة
+            </Text>
+            <View>
+              {singleNews?.related_items?.map((item) => (
+                <SubNews
+                  subNewsImageSource={item.image}
+                  subNewsContent={item.name}
+                  newsID={item.id}
+                />
+              ))}
+            </View>
           </>
         )}
       </ScrollView>

@@ -2,7 +2,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import {
   Dimensions,
-  FlatList,
   ImageBackground,
   StatusBar,
   StyleSheet,
@@ -18,37 +17,18 @@ import { Category } from "../components/Category";
 import { GreetingBox } from "../components/Greeting";
 import { COLORS } from "../config/colors";
 import { SMALL_SPACING } from "../config/dimensions";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-  getAllCategories,
-  getCategories,
-} from "../redux/categories/categoriesSlice";
-import { Loading } from "../components/Loading";
+import { useAppSelector } from "../redux/hooks";
+import { getAllCategories } from "../redux/categories/categoriesSlice";
 
 interface Props {
   navigation: NativeStackNavigationProp<RootStackParamList>;
 }
 
 export const StartScreen: React.FC<Props> = ({ navigation }) => {
-  const dispatch = useAppDispatch();
-
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState<
-    number | undefined
-  >(undefined);
-
-  React.useEffect(() => {
-    (async () => await getCategories(dispatch))();
-  }, []);
-
-  const { loading: loadingCategories, categories } =
-    useAppSelector(getAllCategories);
+  const { categories } = useAppSelector(getAllCategories);
 
   const handleStartNowPress = () => {
-    if (selectedCategoryIndex) {
-      navigation.reset({ routes: [{ name: "TabStackScreen" }] });
-    } else {
-      Toast.show({ type: "error", text1: "إختر تصنيفاً إخبارياً أولاً" });
-    }
+    navigation.reset({ routes: [{ name: "TabStackScreen" }] });
   };
 
   return (
@@ -65,27 +45,31 @@ export const StartScreen: React.FC<Props> = ({ navigation }) => {
         ]}
         style={styles.overlay}
       >
-        <GreetingBox />
-        <View style={styles.categoryContainer}>
-          {loadingCategories ? (
-            <Loading />
-          ) : (
-            categories.map((category, index) => (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            gap: 20,
+            alignItems: "flex-end",
+          }}
+        >
+          <GreetingBox />
+          <View style={styles.categoryContainer}>
+            {categories.map((category, index) => (
               <Category
                 index={index}
                 key={`${category.id}-${category.key}`}
                 text={category.name}
-                selectedCategoryIndex={selectedCategoryIndex}
-                onPress={setSelectedCategoryIndex}
+                isStartScreen
               />
-            ))
-          )}
+            ))}
+          </View>
+          <Button
+            text="إبدا الأن"
+            buttonStyle={styles.button}
+            onPress={handleStartNowPress}
+          />
         </View>
-        <Button
-          text="إبدا الأن"
-          buttonStyle={styles.button}
-          onPress={handleStartNowPress}
-        />
       </LinearGradient>
     </ImageBackground>
   );
@@ -101,12 +85,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.lightBlack,
   },
   categoryContainer: {
-    flexDirection: "row",
+    width: width * 0.7,
+    flexDirection: "row-reverse",
     flexWrap: "wrap",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
     gap: 10,
-    paddingLeft: SMALL_SPACING * 8,
-    paddingRight: SMALL_SPACING,
   },
   button: {
     width: "90%",

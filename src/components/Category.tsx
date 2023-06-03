@@ -11,31 +11,39 @@ import { COLORS } from "../config/colors";
 import { BORDER_RADIUS, SMALL_SPACING } from "../config/dimensions";
 import { globalStyles } from "../config/globalStyles";
 import { TEXT_12 } from "../config/fonts";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setCategoryId } from "../redux/categories/categoriesSlice";
 
 interface Props {
   index: number;
   text: string;
-  onPress: Dispatch<SetStateAction<number | undefined>>;
+
   imageSource?: ImageSourcePropType;
-  selectedCategoryIndex?: number;
+
+  isStartScreen?: boolean;
 }
 
 export const Category: React.FC<Props> = ({
   index,
   text,
-  onPress,
   imageSource,
-  selectedCategoryIndex,
+  isStartScreen,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const { categoryID } = useAppSelector((state) => state.categories);
+
   return (
     <TouchableOpacity
-      onPress={() => onPress(index)}
+      onPress={() => dispatch(setCategoryId(index + 1))}
       style={[
         styles.container,
         {
           backgroundColor:
-            index === selectedCategoryIndex
+            index + 1 === categoryID
               ? COLORS.mainColor
+              : isStartScreen
+              ? "transparent"
               : COLORS.lightMainColor,
         },
       ]}
@@ -45,7 +53,11 @@ export const Category: React.FC<Props> = ({
           styles.text,
           {
             color:
-              index === selectedCategoryIndex ? COLORS.white : COLORS.mainGray,
+              index + 1 === categoryID
+                ? COLORS.white
+                : isStartScreen
+                ? "white"
+                : COLORS.mainGray,
           },
         ]}
       >

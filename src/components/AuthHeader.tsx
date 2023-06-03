@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View, ViewStyle } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+  useWindowDimensions,
+} from "react-native";
 import { HeaderBackButton } from "./HeaderButtonBack";
 import { SMALL_SPACING } from "../config/dimensions";
 import { HEADER_2, TEXT_12 } from "../config/fonts";
@@ -10,6 +16,7 @@ interface Props {
 }
 
 export const AuthHeader: React.FC<Props> = ({ pageHeaderTitle }) => {
+  const { height } = useWindowDimensions();
   const renderPageHeaderTitle = (
     <Text style={styles.pageTitle}>{pageHeaderTitle}</Text>
   );
@@ -41,18 +48,18 @@ export const AuthHeader: React.FC<Props> = ({ pageHeaderTitle }) => {
   );
 
   return (
-    <>
+    <View style={[styles.container, { height: height / 3.5 }]}>
       <OverlayCircleHeader backgroundColor={"#15202B"} scale={1.5} />
       <OverlayCircleHeader backgroundColor={"#0F1A24"} scale={1.7} />
       <HeaderBackButton
         backgroundColor={COLORS.darkAuthHeader}
         paddingTop={SMALL_SPACING * 2}
       />
-      <View style={styles.container}>
-        {renderPageHeaderTitle}
-        {renderNewsPaperTitle}
-      </View>
-    </>
+      {/* <View style={styles.container}> */}
+      {renderPageHeaderTitle}
+      {renderNewsPaperTitle}
+      {/* </View> */}
+    </View>
   );
 };
 

@@ -10,10 +10,18 @@ import { globalStyles } from "../config/globalStyles";
 import { SMALL_SPACING } from "../config/dimensions";
 
 interface Props {
-  text?: boolean;
+  newsID: number | undefined;
+  newsLikes: number | undefined;
+  newsDislikes: number | undefined;
+  comments: [];
 }
 
-export const NewsUserActions: React.FC<Props> = ({ text }) => {
+export const NewsUserActions: React.FC<Props> = ({
+  newsID,
+  newsLikes,
+  newsDislikes,
+  comments,
+}) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -23,9 +31,15 @@ export const NewsUserActions: React.FC<Props> = ({ text }) => {
       <NewsUserActionsItem
         text="تعليق"
         imageSource={IMAGES.message}
-        onPress={() => navigation.navigate("CommentScreen")}
+        onPress={() =>
+          navigation.navigate("CommentScreen", { comments, newsID })
+        }
       />
-      <LikeDisLikeBox />
+      <LikeDisLikeBox
+        likes={newsLikes}
+        dislikes={newsDislikes}
+        newsID={newsID}
+      />
     </View>
   );
 };

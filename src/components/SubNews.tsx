@@ -15,9 +15,10 @@ import { NewsStackScreenParamsList } from "../navigation/types";
 import { SMALL_SPACING } from "../config/dimensions";
 import { TEXT_12, TEXT_14 } from "../config/fonts";
 import { COLORS } from "../config/colors";
+
 interface Props {
   newsID?: number | undefined;
-  subNewsImageSource: ImageSourcePropType;
+  subNewsImageSource: string | undefined;
   subNewsContent: string | undefined;
 }
 
@@ -30,7 +31,7 @@ export const SubNews: React.FC<Props> = ({
     useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
 
   const renderNewsImage = subNewsImageSource ? (
-    <Image source={subNewsImageSource} style={styles.image} />
+    <Image source={{ uri: subNewsImageSource }} style={styles.image} />
   ) : null;
 
   const renderSubNewsContent = (

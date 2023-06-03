@@ -9,6 +9,11 @@ interface SingleNews {
   name: string;
   content: string;
   category_name: string;
+  likes: undefined;
+  dislikes: undefined;
+  created_at: string;
+  comments: [];
+  related_items: { id: number; name: string; image: string }[];
 }
 
 interface SingleNewsState {
@@ -24,6 +29,11 @@ const initialState: SingleNewsState = {
     name: "",
     content: "",
     category_name: "",
+    likes: undefined,
+    dislikes: undefined,
+    created_at: "",
+    comments: [],
+    related_items: [],
   },
 };
 

@@ -7,6 +7,7 @@ import { StartStackScreen } from "./stacks/start";
 import { AuthStackScreen } from "./stacks/auth";
 import { ProfileStackScreen } from "./stacks/profile";
 import { CommentScreen } from "../views/CommentScreen";
+import { SplashScreen } from "../views/SplashScreen";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -14,9 +15,10 @@ export const RootStackScreen: React.FC = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName="StartStackScreen"
+        initialRouteName="SplashScreen"
         screenOptions={{ headerShown: false }}
       >
+        <RootStack.Screen name="SplashScreen" component={SplashScreen} />
         <RootStack.Screen
           name="StartStackScreen"
           component={StartStackScreen}

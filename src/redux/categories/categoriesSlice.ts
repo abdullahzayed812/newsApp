@@ -12,11 +12,13 @@ interface Category {
 interface CategoriesState {
   loading: boolean;
   categories: Category[];
+  categoryID: number;
 }
 
 const initialState: CategoriesState = {
   loading: false,
   categories: [],
+  categoryID: 1,
 };
 
 const categoriesSlice = createSlice({
@@ -33,11 +35,18 @@ const categoriesSlice = createSlice({
     categoriesFailed(state) {
       state.loading = false;
     },
+    setCategoryId(state, action: PayloadAction<number>) {
+      state.categoryID = action.payload;
+    },
   },
 });
 
-export const { categoriesRequest, categoriesSuccess, categoriesFailed } =
-  categoriesSlice.actions;
+export const {
+  categoriesRequest,
+  categoriesSuccess,
+  categoriesFailed,
+  setCategoryId,
+} = categoriesSlice.actions;
 
 export const getAllCategories = (state: RootState) => state.categories;
 

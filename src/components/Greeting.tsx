@@ -21,15 +21,9 @@ export const GreetingBox: React.FC = () => {
   );
 };
 
-const { width } = Dimensions.get("screen");
-
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 212,
-  },
   header: {
     ...HEADER_1,
-    marginBottom: SMALL_SPACING,
     paddingRight: SMALL_SPACING,
     color: COLORS.white,
   },

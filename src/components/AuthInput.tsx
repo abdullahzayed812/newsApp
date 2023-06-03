@@ -16,7 +16,7 @@ interface Props {
   leftImageSource?: ImageSourcePropType;
   fieldTitle?: string;
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  onChangeText: (text: string) => void;
   rightImageSource?: ImageSourcePropType;
   placeholder?: string;
 }
@@ -26,7 +26,7 @@ export const AuthInput: React.FC<Props> = ({
   rightImageSource,
   fieldTitle,
   value,
-  setValue,
+  onChangeText,
   placeholder,
 }) => {
   return (
@@ -35,7 +35,7 @@ export const AuthInput: React.FC<Props> = ({
         <Text style={styles.fieldTitle}>{fieldTitle}</Text>
         <TextInput
           value={value}
-          onChangeText={(text) => setValue(text)}
+          onChangeText={onChangeText}
           style={{ padding: 0, textAlign: "right" }}
           placeholder={placeholder}
           placeholderTextColor={COLORS.black}
