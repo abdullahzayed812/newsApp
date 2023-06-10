@@ -12,16 +12,15 @@ import { SMALL_SPACING } from "../config/dimensions";
 import { TEXT_14 } from "../config/fonts";
 
 interface Props {
-  setShowCommentModal: Dispatch<SetStateAction<boolean>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+  title: string;
 }
 
-export const CommentModalHeader: React.FC<Props> = ({
-  setShowCommentModal,
-}) => {
+export const ModalHeader: React.FC<Props> = ({ setShowModal, title }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>إضافة تعليق</Text>
-      <TouchableOpacity onPress={() => setShowCommentModal(false)}>
+      <Text style={styles.text}>{title}</Text>
+      <TouchableOpacity onPress={() => setShowModal(false)}>
         <Image source={IMAGES.close} />
       </TouchableOpacity>
     </View>

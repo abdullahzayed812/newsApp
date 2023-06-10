@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   View,
+  ViewStyle,
 } from "react-native";
 import { globalStyles } from "../config/globalStyles";
 import { SMALL_SPACING } from "../config/dimensions";
@@ -19,6 +20,7 @@ interface Props {
   onChangeText: (text: string) => void;
   rightImageSource?: ImageSourcePropType;
   placeholder?: string;
+  containerStyle?: ViewStyle;
 }
 
 export const AuthInput: React.FC<Props> = ({
@@ -28,17 +30,20 @@ export const AuthInput: React.FC<Props> = ({
   value,
   onChangeText,
   placeholder,
+  containerStyle,
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <View style={{ flex: 1 }}>
-        <Text style={styles.fieldTitle}>{fieldTitle}</Text>
+        {fieldTitle ? (
+          <Text style={styles.fieldTitle}>{fieldTitle}</Text>
+        ) : null}
         <TextInput
           value={value}
           onChangeText={onChangeText}
-          style={{ padding: 0, textAlign: "right" }}
+          style={{ padding: 0, textAlign: "right", color: COLORS.mainGray }}
           placeholder={placeholder}
-          placeholderTextColor={COLORS.black}
+          placeholderTextColor={COLORS.mediumGray}
         />
         {rightImageSource ? (
           <Image source={rightImageSource} style={styles.image} />

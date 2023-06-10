@@ -3,13 +3,19 @@ import { Input } from "./Input";
 import { IMAGES } from "../config/images";
 import { globalStyles } from "../config/globalStyles";
 import { COLORS } from "../config/colors";
+import React from "react";
+
 export const Header: React.FC = () => {
+  const [search, setSearch] = React.useState<string>("");
+
   return (
     <View style={styles.container}>
       <Input
         placeholder="ابحث عن خبر"
         rightImageSource={IMAGES.search}
         containerStyle={styles.inputContainer}
+        value={search}
+        setValue={setSearch}
       />
       <Image source={IMAGES.logo} />
     </View>

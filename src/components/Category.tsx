@@ -35,12 +35,12 @@ export const Category: React.FC<Props> = ({
 
   return (
     <TouchableOpacity
-      onPress={() => dispatch(setCategoryId(index + 1))}
+      onPress={() => dispatch(setCategoryId(index))}
       style={[
         styles.container,
         {
           backgroundColor:
-            index + 1 === categoryID
+            index === categoryID
               ? COLORS.mainColor
               : isStartScreen
               ? "transparent"
@@ -53,7 +53,7 @@ export const Category: React.FC<Props> = ({
           styles.text,
           {
             color:
-              index + 1 === categoryID
+              index === categoryID
                 ? COLORS.white
                 : isStartScreen
                 ? "white"

@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Dimensions, Modal, StyleSheet, Text, View } from "react-native";
-import { CommentModalHeader } from "./CommentModalHeader";
 import { Input } from "./Input";
 import { Button } from "./Button";
 import { COLORS } from "../config/colors";
@@ -13,6 +12,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
 import { instance } from "../config/api";
 import { SAVE_COMMENT_ENDPOINT_URL } from "../config/urls";
+import { ModalHeader } from "./ModalHeader";
 
 interface Props {
   comment: string;
@@ -91,7 +91,7 @@ export const CommentModal: React.FC<Props> = ({
     <Modal visible={isOpen} animationType="slide" transparent>
       <View style={styles.overlay}>
         <View style={styles.container}>
-          <CommentModalHeader setShowCommentModal={setIsOpen} />
+          <ModalHeader setShowModal={setIsOpen} title="أضف تعليقاً" />
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <Input
             value={comment}

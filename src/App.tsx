@@ -14,6 +14,13 @@ import { ErrorToast } from "react-native-toast-message";
 import { COLORS } from "./config/colors";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { getCategories } from "./redux/categories/categoriesSlice";
+
+(async () => {
+  try {
+    await getCategories(store.dispatch);
+  } catch (error) {}
+})();
 
 const toastConfig = {
   error: (props: any) => (

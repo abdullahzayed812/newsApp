@@ -1,7 +1,10 @@
 import {
+  BackHandler,
   ImageSourcePropType,
+  ScrollView,
   StatusBar,
   Text,
+  TouchableOpacity,
   View,
   useWindowDimensions,
 } from "react-native";
@@ -10,32 +13,54 @@ import { IMAGES } from "../config/images";
 import { COLORS } from "../config/colors";
 import { HeaderBackButton } from "../components/HeaderButtonBack";
 import { UserInfo } from "../components/UserInfo";
-import { SMALL_SPACING } from "../config/dimensions";
+import { LARGE_SPACING, SMALL_SPACING } from "../config/dimensions";
 import { ProfileOption } from "../components/ProfileOption";
 import { SocialContainer } from "../components/SocialContainer";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
+import React from "react";
+import { loadUserData } from "../config/helpers";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface Props {
   navigation: NativeStackNavigationProp<RootStackParamList>;
 }
 
-interface ProfileOptionPropType {
-  text: string;
-  imageSource: ImageSourcePropType;
-}
-
-const PROFILE_OPTION_DATA: ProfileOptionPropType[] = [
-  { text: "الإشعارات", imageSource: IMAGES.notification },
-  { text: "الإعدادات", imageSource: IMAGES.setting },
-  { text: "الشروط والأحكام", imageSource: IMAGES.noteText },
-  { text: "مشاركة التطبيق", imageSource: IMAGES.share1 },
-  { text: "من نحن", imageSource: IMAGES.information },
-  { text: "هيئة التحرير", imageSource: IMAGES.box },
-];
-
 export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
+
+  const [username, setUsername] = React.useState<string>("");
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigation.navigate("TabStackScreen", {
+          screen: "MainStackScreen",
+          params: { screen: "MainScreen" },
+        });
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, []),
+  );
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const user = await loadUserData();
+        setUsername(user?.first_name);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  const handleNavigation = () =>
+    !username
+      ? navigation.navigate("AuthStackScreen", { screen: "SignInUpScreen" })
+      : null;
 
   return (
     <>
@@ -51,22 +76,56 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
         locations={[0.04, 0.5, 1]}
         style={{ width, height }}
       >
-        <HeaderBackButton isProfileScreen />
-        <UserInfo
-          onPress={() =>
-            navigation.navigate("AuthStackScreen", { screen: "SignInUpScreen" })
-          }
-        />
-        <View style={{ paddingRight: SMALL_SPACING * 1.5 }}>
-          {PROFILE_OPTION_DATA.map((option, index) => (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: LARGE_SPACING }}
+        >
+          <HeaderBackButton isProfileScreen />
+          <UserInfo onPress={handleNavigation} />
+          <View style={{ paddingRight: SMALL_SPACING * 1.5 }}>
             <ProfileOption
-              key={`${option.text}-${index}`}
-              text={option.text}
-              imageSource={option.imageSource}
+              text="الإشعارات"
+              imageSource={IMAGES.notification}
+              onPress={() =>
+                navigation.navigate("ProfileStackScreen", {
+                  screen: "NotificationScreen",
+                })
+              }
             />
-          ))}
-        </View>
-        <SocialContainer />
+            {username ? (
+              <>
+                <ProfileOption text="إضافة خبر" imageSource={IMAGES.add} />
+                <ProfileOption
+                  text="تعديل الملف الشخصي"
+                  imageSource={IMAGES.add}
+                  onPress={() =>
+                    navigation.navigate("ProfileStackScreen", {
+                      screen: "UpdateProfileScreen",
+                    })
+                  }
+                />
+                <ProfileOption
+                  text="الإعدادات"
+                  imageSource={IMAGES.add}
+                  onPress={() =>
+                    navigation.navigate("ProfileStackScreen", {
+                      screen: "SettingsScreen",
+                    })
+                  }
+                />
+                <ProfileOption text="أخباري" imageSource={IMAGES.add} />
+              </>
+            ) : null}
+            <ProfileOption
+              text="الشروط والأحطام"
+              imageSource={IMAGES.noteText}
+            />
+            <ProfileOption text="مشاركة التطبيق" imageSource={IMAGES.share1} />
+            <ProfileOption text="من نحن" imageSource={IMAGES.information} />
+            <ProfileOption text="هيئة التحرير" imageSource={IMAGES.box} />
+          </View>
+          <SocialContainer title="تابعنا على" />
+        </ScrollView>
       </LinearGradient>
     </>
   );

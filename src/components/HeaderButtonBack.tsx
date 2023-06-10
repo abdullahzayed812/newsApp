@@ -20,6 +20,7 @@ interface Props {
   isProfileScreen?: boolean;
   backgroundColor?: string;
   paddingTop?: number;
+  isHeaderDark?: boolean;
 }
 
 export const HeaderBackButton: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const HeaderBackButton: React.FC<Props> = ({
   isProfileScreen,
   backgroundColor,
   paddingTop,
+  isHeaderDark,
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<TabStackScreenParamsList>>();
@@ -35,7 +37,7 @@ export const HeaderBackButton: React.FC<Props> = ({
     if (isProfileScreen) {
       navigation.navigate("MainStackScreen", { screen: "MainScreen" });
     } else {
-      navigation.navigate("NewsStackScreen", { screen: "NewsTabScreen" });
+      navigation.goBack();
     }
   };
 
@@ -45,7 +47,9 @@ export const HeaderBackButton: React.FC<Props> = ({
         onPress={handleBackButtonPress}
         style={styles.imageContainer}
       >
-        <Image source={IMAGES.backDark} />
+        <Image
+          source={isHeaderDark ? IMAGES.backArrowWhite : IMAGES.backDark}
+        />
       </TouchableOpacity>
       {title ? <Text style={TEXT_16}>{title}</Text> : null}
     </View>

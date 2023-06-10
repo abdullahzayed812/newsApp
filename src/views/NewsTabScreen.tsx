@@ -39,6 +39,7 @@ export const NewsTabScreen: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const categoriesRef = React.useRef<ScrollView>(null);
+
   const { categories } = useAppSelector(getAllCategories);
   const { loading: popularPostsLoading, popularPosts } =
     useAppSelector(getPost);
@@ -62,14 +63,14 @@ export const NewsTabScreen: React.FC = () => {
 
   React.useEffect(() => {
     (async () => {
-      await getPostsByCategoryID(dispatch, categoryID);
+      await getPostsByCategoryID(dispatch, categoryID - 1);
     })();
   }, [categoryID]);
 
   const createCategories = () => {
     return categories.map((category, index) => (
       <Category
-        index={index}
+        index={index + 1}
         key={`${category.id}-${category.key}`}
         text={category.name}
         imageSource={CATEGORY_IMAGE[index]}
@@ -128,13 +129,13 @@ export const NewsTabScreen: React.FC = () => {
           {createSubNews()}
           {advertisementLoading ? (
             <Loading />
-          ) : (
+          ) : advertisement?.position_1 ? (
             <ADS
               adsImageSource={{
-                uri: `https://newspens.sa${advertisement?.position_2}`,
+                uri: `https://newspens.sa${advertisement?.position_1}`,
               }}
             />
-          )}
+          ) : null}
           {postsByCategoryIDLoading ? (
             <Loading />
           ) : (

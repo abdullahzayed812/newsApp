@@ -1,4 +1,10 @@
-import { ScrollView, StatusBar, Text, useWindowDimensions } from "react-native";
+import {
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import { AuthHeader } from "../components/AuthHeader";
 import LinearGradient from "react-native-linear-gradient";
 import { COLORS } from "../config/colors";
@@ -22,11 +28,16 @@ import { instance } from "../config/api";
 import { LOGIN_ENDPOINT_URL } from "../config/urls";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
+import { TEXT_14 } from "../config/fonts";
+import { REGISTER_ENDPOINT_URL } from "../config/urls";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export interface InputsValueType {
-  fullName?: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 interface Props {
@@ -36,9 +47,11 @@ interface Props {
 export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = useWindowDimensions();
   const [userInfo, setUserInfo] = React.useState<InputsValueType>({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
   const [error, setError] = React.useState<string>("");
   const [signInButtonStyle, setSignInButtonStyle] = React.useState<{
@@ -84,29 +97,43 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const { fullName, email, password } = userInfo;
+  const { firstName, lastName, email, password, confirmPassword } = userInfo;
 
   const handleOnChangeInputText = (value: string, fieldName: string) => {
     setUserInfo({ ...userInfo, [fieldName]: value });
   };
 
-  const onCreateAccountSubmit = () => {
+  const onCreateAccountSubmit = async () => {
     // check all input is filled with not empty string
-    if (!isInputsFilled(userInfo))
+    if (
+      !isInputsFilled({ email, firstName, lastName, password, confirmPassword })
+    )
       return updateError("Inputs must be filled", setError);
-    // check if fullName is valid value
-    if (!fullName!.trim() || fullName!.length < 6)
-      return updateError(
-        "Full Name must be grate than 6 characters!",
-        setError,
-      );
     // check if email is valid
     if (!verifyInput(email, validEmailPattern))
       return updateError("Invalid email!", setError);
     // check if password is valid
     if (!verifyInput(password, validPasswordPattern))
       return updateError("Password must be grater than 6 characters", setError);
+    if (password !== confirmPassword)
+      return updateError("Password not match", setError);
     // send data to the server
+    try {
+      const signUpResponse = await instance.post(REGISTER_ENDPOINT_URL, {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        password,
+        password_confirmation: confirmPassword,
+      });
+      if (signUpResponse?.data?.email) {
+        setShowFullName(false);
+      } else {
+        Toast.show({ type: "error", text1: signUpResponse?.data?.error });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onSignInSubmit = async () => {
@@ -152,6 +179,8 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
         pageHeaderTitle={
           showFullName ? "إنشاء حساب جديد" : "تسجيل الدخول الي حسابك"
         }
+        subTitle="صحيفة أقلام الخبر "
+        isLoginScreen
       />
       <LinearGradient
         colors={[
@@ -183,15 +212,26 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
               </Text>
             ) : null}
             {showFullName ? (
-              <AuthInput
-                value={fullName!}
-                onChangeText={(value) =>
-                  handleOnChangeInputText(value, "fullName")
-                }
-                fieldTitle="الإسم بالكامل"
-                leftImageSource={IMAGES.ball}
-                placeholder="محمود عصام عثمان"
-              />
+              <>
+                <AuthInput
+                  value={firstName}
+                  onChangeText={(value) =>
+                    handleOnChangeInputText(value, "firstName")
+                  }
+                  fieldTitle="الإسم الأول"
+                  leftImageSource={IMAGES.ball}
+                  placeholder="محمود"
+                />
+                <AuthInput
+                  value={lastName!}
+                  onChangeText={(value) =>
+                    handleOnChangeInputText(value, "lastName")
+                  }
+                  fieldTitle="الإسم الأخير"
+                  leftImageSource={IMAGES.ball}
+                  placeholder="فؤاد"
+                />
+              </>
             ) : null}
             <AuthInput
               value={email}
@@ -209,6 +249,18 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
               leftImageSource={IMAGES.ball}
               placeholder="*********"
             />
+            {!showFullName ? (
+              <TouchableOpacity
+                style={TEXT_14}
+                onPress={() =>
+                  navigation.navigate("AuthStackScreen", {
+                    screen: "ForgotPasswordScreen",
+                  })
+                }
+              >
+                <Text>نسيت كلمة المرور؟</Text>
+              </TouchableOpacity>
+            ) : null}
             {showFullName ? (
               <Button
                 text="إنشاء حساب"

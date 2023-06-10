@@ -51,22 +51,11 @@ export const LastNews: React.FC = () => {
     <View style={styles.container}>
       <ContentHeader text="آخر الأخبار" imageSource={IMAGES.lastNews} />
       <MainNewsCard
+        id={undefined}
         imageBackgroundSource={IMAGES.mainCard}
         category="رياضة"
-        timeStamp="منذ 3 ساعات"
         content="عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر"
       />
-      <ADS />
-      {DATA.map((item, index) => (
-        <MainNewsCard
-          cardStyle={styles.cardStyle}
-          key={`Item-${index}-${item.category}`}
-          imageBackgroundSource={item.imageBackgroundSource}
-          category={item.category}
-          timeStamp={item.timeStamp}
-          content={item.content}
-        />
-      ))}
     </View>
   );
 };

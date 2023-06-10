@@ -12,9 +12,15 @@ export type NewsStackScreenParamsList = {
 };
 export type ProfileStackScreenParamsList = {
   ProfileScreen: undefined;
+  NotificationScreen: undefined;
+  UpdateProfileScreen: undefined;
+  SettingsScreen: undefined;
+  UpdatePasswordScreen: undefined;
+  ChangeLangScreen: undefined;
 };
 export type AuthStackScreenParamsList = {
   SignInUpScreen: undefined;
+  ForgotPasswordScreen: undefined;
 };
 export type TabStackScreenParamsList = {
   MainStackScreen: NavigatorScreenParams<MainStackScreenParamsList>;

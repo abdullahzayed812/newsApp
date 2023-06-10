@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { InputsValueType } from "../../views/SignInInUpcreen";
 import { Dispatch, SetStateAction } from "react";
 
 export const validEmailPattern =
@@ -8,7 +7,7 @@ export const validEmailPattern =
 // export const validPasswordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/gi;
 export const validPasswordPattern = /\w{6,20}/gi;
 
-export const isInputsFilled = (inputs: InputsValueType) => {
+export const isInputsFilled = (inputs: { [index: string]: string }) => {
   return Object.values(inputs).every((inputValue) => inputValue.trim());
 };
 

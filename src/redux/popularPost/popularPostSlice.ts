@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from "../store";
 import { instance } from "../../config/api";
 import { POPULAR_POSTS_ENDPOINT_URL } from "../../config/urls";
 
-interface PopularPosts {
+export interface PopularPosts {
   id?: number;
   image?: string;
   name?: string;

@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { NewsStackScreenParamsList } from "../navigation/types";
 import { SMALL_SPACING } from "../config/dimensions";
-import { TEXT_12, TEXT_14 } from "../config/fonts";
+import { TEXT_12 } from "../config/fonts";
 import { COLORS } from "../config/colors";
 
 interface Props {
@@ -37,7 +37,7 @@ export const SubNews: React.FC<Props> = ({
   const renderSubNewsContent = (
     <View>
       <Text style={styles.newsText}>{subNewsContent}</Text>
-      <NewsActions dark />
+      {/* <NewsActions dark /> */}
     </View>
   );
 
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     color: COLORS.mainGray,
   },
   newsText: {
-    ...TEXT_14,
-    width: width * 0.6,
+    ...TEXT_12,
+    width: width * 0.5,
   },
   image: {
     width: 130,

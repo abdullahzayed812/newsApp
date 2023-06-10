@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { NewsStackScreenParamsList } from "../navigation/types";
 import { Header } from "../components/Header";
-import { ADS } from "../components/Adds";
 import { NewsCategoryTitle } from "../components/NewsCategoryTitle";
 import { TimeStamp } from "../components/TimeStamp";
 import { NewsUserActions } from "../components/NewsUserActions";
@@ -20,7 +19,6 @@ import { COLORS } from "../config/colors";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getNews, getSingleNews } from "../redux/singleNews/singleNewsSlice";
 import { Loading } from "../components/Loading";
-import { getAdvertisements } from "../redux/advertisement";
 import { SubNews } from "../components/SubNews";
 
 interface Props {
@@ -38,7 +36,7 @@ export const NewsScreen: React.FC<Props> = ({ route }) => {
 
   React.useEffect(() => {
     (async () => await getSingleNews(dispatch, newsID))();
-  }, []);
+  }, [newsID]);
 
   return (
     <>
@@ -57,12 +55,17 @@ export const NewsScreen: React.FC<Props> = ({ route }) => {
               <Image source={{ uri: singleNews?.image }} style={styles.image} />
             ) : null}
             <NewsUserActions
+              twitter={singleNews?.twitter}
+              whatsapp={singleNews?.whatsapp}
+              telegram={singleNews?.telegram}
               newsID={singleNews.id}
               newsLikes={singleNews.likes}
               newsDislikes={singleNews.dislikes}
               comments={singleNews?.comments}
             />
-            <Text style={styles.content}>{singleNews?.content}</Text>
+            <Text style={styles.content}>
+              {singleNews?.content?.replaceAll(/(<[^>]*>)/gi, "")}
+            </Text>
             {/* add ads here */}
             <Text
               style={{
@@ -73,15 +76,16 @@ export const NewsScreen: React.FC<Props> = ({ route }) => {
             >
               أخبار ذات صلة
             </Text>
-            <View>
+            <ScrollView showsHorizontalScrollIndicator={false} horizontal>
               {singleNews?.related_items?.map((item) => (
                 <SubNews
+                  key={item.name}
                   subNewsImageSource={item.image}
                   subNewsContent={item.name}
                   newsID={item.id}
                 />
               ))}
-            </View>
+            </ScrollView>
           </>
         )}
       </ScrollView>

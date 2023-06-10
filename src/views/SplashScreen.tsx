@@ -20,13 +20,10 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = useWindowDimensions();
 
   React.useEffect(() => {
-    (async () => {
-      const res = await getCategories(dispatch);
-      await getAdvertisement(dispatch);
-      if (res?.data?.data.length > 0) {
-        navigation.navigate("StartStackScreen", { screen: "StartScreen" });
-      }
-    })();
+    const timerID = setTimeout(() => {
+      navigation.navigate("StartStackScreen", { screen: "StartScreen" });
+    }, 2000);
+    return () => clearTimeout(timerID);
   }, []);
 
   return (

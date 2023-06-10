@@ -10,53 +10,41 @@ import {
 import { ContentHeader } from "./ContentHeader";
 import { IMAGES } from "../config/images";
 import { MainNewsCard } from "./MainNewsCard";
+import { SMALL_SPACING } from "../config/dimensions";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {
+  PopularPosts,
+  getPopularPosts,
+} from "../redux/popularPost/popularPostSlice";
+import { getPost } from "../redux/popularPost/popularPostSlice";
 
-interface FlatListItemProp {
-  category: string;
-  timeStamp: string;
-  newsContent: string;
-  imageBackgroundSource: ImageSourcePropType;
-}
-
-const DATA: FlatListItemProp[] = [
-  {
-    category: "مقالات",
-    timeStamp: "منذ 1 دقيقة",
-    newsContent: "إحتمال وارد قد نتمكن من مشاهدة الكواكب المتشكلة من المادة",
-    imageBackgroundSource: IMAGES.moreWatchingFlatList,
-  },
-  {
-    category: "مقالات",
-    timeStamp: "منذ 1 دقيقة",
-    newsContent: "إحتمال وارد قد نتمكن من مشاهدة الكواكب المتشكلة من المادة",
-    imageBackgroundSource: IMAGES.moreWatchingFlatList1,
-  },
-  {
-    category: "منوعات",
-    timeStamp: "منذ 1 دقيقة",
-    newsContent: "إحتمال وارد قد نتمكن من مشاهدة الكواكب المتشكلة من المادة",
-    imageBackgroundSource: IMAGES.moreWatchingFlatList2,
-  },
-];
-
-const renderItem = (item: FlatListItemProp) => {
+const renderItem = (item: PopularPosts) => {
   return (
     <MainNewsCard
-      imageBackgroundSource={item.imageBackgroundSource}
-      category={item.category}
-      timeStamp={item.timeStamp}
-      content={item.newsContent}
+      id={item.id}
+      imageBackgroundSource={{ uri: item.image }}
+      content={item.name}
       isMoreWatching={true}
     />
   );
 };
 
 export const MoreWatching: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    (async () => {
+      await getPopularPosts(dispatch);
+    })();
+  }, []);
+
+  const { popularPosts } = useAppSelector(getPost);
+
   return (
-    <View>
+    <View style={{ marginTop: SMALL_SPACING / 2 }}>
       <ContentHeader text="الأكثر مشاهدة" imageSource={IMAGES.moreWatching} />
       <FlatList
-        data={DATA}
+        data={popularPosts}
         renderItem={({ item }) => renderItem(item)}
         horizontal
         showsHorizontalScrollIndicator={false}

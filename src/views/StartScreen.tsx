@@ -57,7 +57,7 @@ export const StartScreen: React.FC<Props> = ({ navigation }) => {
           <View style={styles.categoryContainer}>
             {categories.map((category, index) => (
               <Category
-                index={index}
+                index={index + 1}
                 key={`${category.id}-${category.key}`}
                 text={category.name}
                 isStartScreen

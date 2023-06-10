@@ -68,7 +68,9 @@ export const MainNewsCard: React.FC<Props> = ({
       style={[
         styles.container,
         cardStyle,
-        { width: isMoreWatching ? ITEM_WIDTH : "100%" },
+        {
+          width: isMoreWatching ? ITEM_WIDTH : "100%",
+        },
       ]}
     >
       <ImageBackground
@@ -89,13 +91,15 @@ export const MainNewsCard: React.FC<Props> = ({
         >
           <View
             style={{
+              justifyContent: "space-between",
               padding: SMALL_SPACING,
               paddingTop: isMoreWatching ? SMALL_SPACING : SMALL_SPACING * 5,
+              height: isMoreWatching ? 150 : undefined,
             }}
           >
             {renderCategoryNews}
             {renderCategoryContent}
-            <NewsActions />
+            {/* <NewsActions /> */}
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
   },
   text: {
     ...TEXT_12,
-    marginBottom: SMALL_SPACING / 6,
+    marginTop: SMALL_SPACING,
     color: COLORS.white,
   },
   bigText: {

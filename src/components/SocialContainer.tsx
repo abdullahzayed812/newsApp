@@ -2,6 +2,7 @@ import React from "react";
 import {
   Image,
   ImageSourcePropType,
+  Share,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,20 +13,51 @@ import { SMALL_SPACING } from "../config/dimensions";
 import { TEXT_14 } from "../config/fonts";
 import { COLORS } from "../config/colors";
 
-const SOCIAL_ITEM_DATA: ImageSourcePropType[] = [
-  IMAGES.facebook,
-  IMAGES.twitter,
-  IMAGES.instagram,
-  IMAGES.youtube,
-];
+interface Props {
+  twitter?: string;
+  telegram?: string;
+  whatsapp?: string;
+  title?: string;
+}
 
-export const SocialContainer: React.FC = () => {
+export const SocialContainer: React.FC<Props> = ({
+  twitter,
+  telegram,
+  whatsapp,
+  title,
+}) => {
+  const openShareApp = async (link: string | undefined, buttonName: string) => {
+    const result = await Share.share({ message: "Share start" });
+  };
+
+  const SOCIAL_ITEM_DATA: {
+    imageSource: ImageSourcePropType;
+    link: string | undefined;
+    onPress: () => void;
+  }[] = [
+    {
+      imageSource: IMAGES.twitter,
+      link: twitter,
+      onPress: () => openShareApp(twitter, "twitter"),
+    },
+    {
+      imageSource: IMAGES.instagram,
+      link: telegram,
+      onPress: () => openShareApp(telegram, "telegram"),
+    },
+    {
+      imageSource: IMAGES.whatsapp,
+      link: whatsapp,
+      onPress: () => openShareApp(whatsapp, "whatsapp"),
+    },
+  ];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>تابعنا على</Text>
+      <Text style={styles.text}>{title}</Text>
       <View style={styles.socialContainer}>
-        {SOCIAL_ITEM_DATA.map((imageSource, index) => (
-          <TouchableOpacity key={index}>
+        {SOCIAL_ITEM_DATA.map(({ imageSource, onPress }, index) => (
+          <TouchableOpacity key={index} onPress={onPress}>
             <Image source={imageSource} />
           </TouchableOpacity>
         ))}
@@ -36,7 +68,7 @@ export const SocialContainer: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: SMALL_SPACING * 1.3,
+    marginTop: SMALL_SPACING,
     paddingHorizontal: SMALL_SPACING,
   },
   text: {

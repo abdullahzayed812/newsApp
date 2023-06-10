@@ -17,7 +17,7 @@ interface Props {
   inputStyle?: ViewStyle;
   multiline?: boolean;
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  setValue: (text: string) => void;
 }
 
 export const Input: React.FC<Props> = ({
@@ -37,7 +37,7 @@ export const Input: React.FC<Props> = ({
       <TextInput
         placeholder={placeholder}
         style={[styles.input, inputStyle]}
-        placeholderTextColor={COLORS.placeholder}
+        placeholderTextColor={COLORS.mediumGray}
         multiline={multiline}
         value={value}
         onChangeText={(text) => setValue(text)}
@@ -58,5 +58,6 @@ const styles = StyleSheet.create({
   input: {
     ...TEXT_14,
     flex: 1,
+    color: COLORS.mainGray,
   },
 });

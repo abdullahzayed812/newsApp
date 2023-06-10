@@ -8,27 +8,38 @@ import {
 } from "react-native";
 import { HeaderBackButton } from "./HeaderButtonBack";
 import { SMALL_SPACING } from "../config/dimensions";
-import { HEADER_2, TEXT_12 } from "../config/fonts";
+import { HEADER_2, HEADER_3, TEXT_12 } from "../config/fonts";
 import { COLORS } from "../config/colors";
 
 interface Props {
-  pageHeaderTitle: string;
+  pageHeaderTitle?: string;
+  subTitle?: string;
+  isLoginScreen?: boolean;
 }
 
-export const AuthHeader: React.FC<Props> = ({ pageHeaderTitle }) => {
+export const AuthHeader: React.FC<Props> = ({
+  pageHeaderTitle,
+  subTitle,
+  isLoginScreen,
+}) => {
   const { height } = useWindowDimensions();
-  const renderPageHeaderTitle = (
+
+  const renderPageHeaderTitle = pageHeaderTitle ? (
     <Text style={styles.pageTitle}>{pageHeaderTitle}</Text>
-  );
+  ) : null;
 
   const renderNewsPaperTitle = (
     <>
-      <Text style={[styles.pageTitle, { color: COLORS.mainColor }]}>
-        صحيفة أقلام الخبر
-      </Text>
-      <Text style={[styles.pageTitle, { color: COLORS.lightGray }]}>
-        ترحب بكم
-      </Text>
+      {subTitle ? (
+        <Text style={[styles.pageTitle, { color: COLORS.mainColor }]}>
+          {subTitle}
+        </Text>
+      ) : null}
+      {isLoginScreen ? (
+        <Text style={[styles.pageTitle, { color: COLORS.lightGray }]}>
+          ترحب بكم
+        </Text>
+      ) : null}
     </>
   );
 
@@ -54,6 +65,7 @@ export const AuthHeader: React.FC<Props> = ({ pageHeaderTitle }) => {
       <HeaderBackButton
         backgroundColor={COLORS.darkAuthHeader}
         paddingTop={SMALL_SPACING * 2}
+        isHeaderDark
       />
       {/* <View style={styles.container}> */}
       {renderPageHeaderTitle}
@@ -70,7 +82,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.darkAuthHeader,
   },
   pageTitle: {
-    ...HEADER_2,
+    ...HEADER_3,
+    zIndex: 100,
     color: COLORS.white,
   },
   newsPaperTitle: {
