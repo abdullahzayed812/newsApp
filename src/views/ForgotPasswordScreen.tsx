@@ -8,12 +8,17 @@ import {
 } from "../config/helpers";
 import { Button } from "../components/Button";
 import { AuthInput } from "../components/AuthInput";
-import { LARGE_SPACING } from "../config/dimensions";
+import { LARGE_SPACING, SMALL_SPACING } from "../config/dimensions";
 import { Container } from "../components/Container";
-import { Text } from "react-native";
+import { Text, useWindowDimensions } from "react-native";
 import { TEXT_14 } from "../config/fonts";
+import LinearGradient from "react-native-linear-gradient";
+import { COLORS } from "../config/colors";
+import { IMAGES } from "../config/images";
 
 export const ForgotPasswordScreen: React.FC = () => {
+  const { width } = useWindowDimensions();
+
   const [email, setEmail] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
 
@@ -31,7 +36,17 @@ export const ForgotPasswordScreen: React.FC = () => {
         subTitle="أدخل بريدك الإلكتروني لإسترجاع كلمة المرور"
         pageHeaderTitle="نسيت كلمة المرور"
       />
-      <Container>
+      <LinearGradient
+        colors={[
+          COLORS.statusBar,
+          COLORS.lightGradient.color1,
+          COLORS.lightGradient.color2,
+        ]}
+        start={{ x: 0.1, y: 0.0 }}
+        end={{ x: 0.8, y: 1 }}
+        locations={[0.04, 0.5, 1]}
+        style={{ width, flex: 1, padding: SMALL_SPACING }}
+      >
         <Text style={{ ...TEXT_14, color: "red", textAlign: "center" }}>
           {error}
         </Text>
@@ -42,9 +57,10 @@ export const ForgotPasswordScreen: React.FC = () => {
           containerStyle={{
             marginTop: LARGE_SPACING * 3,
           }}
+          leftImageSource={IMAGES.ball}
         />
         <Button text="تأكيد" onPress={onSubmit} />
-      </Container>
+      </LinearGradient>
     </>
   );
 };

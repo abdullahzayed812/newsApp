@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   ImageSourcePropType,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -33,9 +34,16 @@ export const Category: React.FC<Props> = ({
 
   const { categoryID } = useAppSelector((state) => state.categories);
 
+  const handleCategoryPress = () => {
+    if (isStartScreen) {
+      return null;
+    }
+    dispatch(setCategoryId(index));
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() => dispatch(setCategoryId(index))}
+    <Pressable
+      onPress={handleCategoryPress}
       style={[
         styles.container,
         {
@@ -66,7 +74,7 @@ export const Category: React.FC<Props> = ({
       {imageSource ? (
         <Image source={imageSource} style={{ marginLeft: SMALL_SPACING / 4 }} />
       ) : null}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

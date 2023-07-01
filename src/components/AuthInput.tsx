@@ -21,6 +21,7 @@ interface Props {
   rightImageSource?: ImageSourcePropType;
   placeholder?: string;
   containerStyle?: ViewStyle;
+  secureTextEntry?: boolean;
 }
 
 export const AuthInput: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const AuthInput: React.FC<Props> = ({
   onChangeText,
   placeholder,
   containerStyle,
+  secureTextEntry,
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -44,6 +46,7 @@ export const AuthInput: React.FC<Props> = ({
           style={{ padding: 0, textAlign: "right", color: COLORS.mainGray }}
           placeholder={placeholder}
           placeholderTextColor={COLORS.mediumGray}
+          secureTextEntry={secureTextEntry}
         />
         {rightImageSource ? (
           <Image source={rightImageSource} style={styles.image} />

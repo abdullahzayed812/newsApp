@@ -14,6 +14,7 @@ interface SingleNews {
   created_at: string;
   comments: [];
   related_items: { id: number; name: string; image: string }[];
+  facebook: string;
   twitter: string;
   whatsapp: string;
   telegram: string;
@@ -37,9 +38,10 @@ const initialState: SingleNewsState = {
     created_at: "",
     comments: [],
     related_items: [],
+    facebook: "string",
     twitter: "string",
-    whatsapp: "string",
     telegram: "string",
+    whatsapp: "string",
   },
 };
 

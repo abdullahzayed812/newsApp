@@ -39,6 +39,8 @@ export const IMAGES = {
   twitter: require("../../../assets/images/twitter.png"),
   instagram: require("../../../assets/images/instagram.png"),
   telegram: require("../../../assets/images/telegram.png"),
+  youtube: require("../../../assets/images/youtube.png"),
+  tikTok: require("../../../assets/images/tik-tok.png"),
   newsImage: require("../../../assets/images/newsImg.png"),
   message: require("../../../assets/images/message.png"),
   messageAdd: require("../../../assets/images/messageAdd.png"),
@@ -54,4 +56,6 @@ export const IMAGES = {
   english: require("../../../assets/images/english.png"),
   arabic: require("../../../assets/images/arabic.png"),
   true: require("../../../assets/images/true.png"),
+  hidden: require("../../../assets/images/hidden.png"),
+  eye: require("../../../assets/images/eye.png"),
 };

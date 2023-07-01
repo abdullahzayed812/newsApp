@@ -30,3 +30,5 @@ export const DECREMENT_POST_LIKE_ENDPOINT_URL: string =
 
 export const INCREMENT_POST_LIKE_ENDPOINT_URL: string =
   "/post/likes/increment/";
+
+export const LAST_NEWS_ENDPOINT_URL: string = "/last-posts";

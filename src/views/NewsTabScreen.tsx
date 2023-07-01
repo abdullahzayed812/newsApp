@@ -41,8 +41,8 @@ export const NewsTabScreen: React.FC = () => {
   const categoriesRef = React.useRef<ScrollView>(null);
 
   const { categories } = useAppSelector(getAllCategories);
-  const { loading: popularPostsLoading, popularPosts } =
-    useAppSelector(getPost);
+  // const { loading: popularPostsLoading, popularPosts } =
+  //   useAppSelector(getPost);
   const { categoryID } = useAppSelector((state) => state.categories);
 
   const { loading: postsByCategoryIDLoading, postsByCategoryID } =
@@ -78,29 +78,29 @@ export const NewsTabScreen: React.FC = () => {
     ));
   };
 
-  const createMainPopularPost = () => {
-    return popularPostsLoading ? (
-      <Loading />
-    ) : (
-      <MainNewsCard
-        id={popularPosts[0]?.id}
-        imageBackgroundSource={{ uri: popularPosts[0]?.image }}
-        content={popularPosts[0]?.name}
-      />
-    );
-  };
+  // const createMainPopularPost = () => {
+  //   return popularPostsLoading ? (
+  //     <Loading />
+  //   ) : (
+  //     <MainNewsCard
+  //       id={popularPosts[0]?.id}
+  //       imageBackgroundSource={{ uri: popularPosts[0]?.image }}
+  //       content={popularPosts[0]?.name}
+  //     />
+  //   );
+  // };
 
-  const createSubNews = () => {
-    return popularPostsLoading ? (
-      <Loading />
-    ) : (
-      <SubNews
-        newsID={popularPosts[1]?.id}
-        subNewsContent={popularPosts[1]?.name}
-        subNewsImageSource={popularPosts[1]?.image}
-      />
-    );
-  };
+  // const createSubNews = () => {
+  //   return popularPostsLoading ? (
+  //     <Loading />
+  //   ) : (
+  //     <SubNews
+  //       newsID={popularPosts[1]?.id}
+  //       subNewsContent={popularPosts[1]?.name}
+  //       subNewsImageSource={{ uri: popularPosts[1].image! }}
+  //     />
+  //   );
+  // };
 
   return (
     <>
@@ -125,14 +125,14 @@ export const NewsTabScreen: React.FC = () => {
       </View>
       <Container containerStyle={{ backgroundColor: COLORS.white }}>
         <ScrollView>
-          {createMainPopularPost()}
-          {createSubNews()}
+          {/* {createMainPopularPost()} */}
+          {/* {createSubNews()} */}
           {advertisementLoading ? (
             <Loading />
           ) : advertisement?.position_1 ? (
             <ADS
               adsImageSource={{
-                uri: `https://newspens.sa${advertisement?.position_1}`,
+                uri: advertisement.position_7,
               }}
             />
           ) : null}
@@ -143,7 +143,7 @@ export const NewsTabScreen: React.FC = () => {
               <SubNews
                 key={index}
                 newsID={item.id}
-                subNewsImageSource={item.image}
+                subNewsImageSource={{ uri: item.image }}
                 subNewsContent={item.name}
               />
             ))

@@ -1,11 +1,20 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Dimensions, Modal, StyleSheet, View } from "react-native";
+import {
+  Dimensions,
+  Linking,
+  Modal,
+  Pressable,
+  StyleSheet,
+  TouchableHighlight,
+  View,
+} from "react-native";
 import { ModalHeader } from "./ModalHeader";
 import { COLORS } from "../config/colors";
 import { SMALL_SPACING } from "../config/dimensions";
 import { IMAGES } from "../config/images";
 import { globalStyles } from "../config/globalStyles";
 import { SocialItem } from "./SocialItem";
+import { useAppSelector } from "../redux/hooks";
 
 interface Props {
   isOpen: boolean;
@@ -13,19 +22,45 @@ interface Props {
 }
 
 export const ShareModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
+  const { singleNews } = useAppSelector((state) => state.singleNews);
+
+  const shareNews = async (url: string) => {
+    try {
+      await Linking.openURL(url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Modal visible={isOpen} animationType="slide" transparent>
-      <View style={styles.overlay}>
-        <View style={styles.container}>
-          <ModalHeader setShowModal={setIsOpen} title="شارك الخبر على" />
+      <Pressable style={styles.overlay} onPress={() => setIsOpen(false)}>
+        <Pressable style={styles.container}>
+          <ModalHeader
+            setShowModal={setIsOpen}
+            title="شارك الخبر على"
+            shareModal
+          />
           <View style={styles.socialContainer}>
-            <SocialItem onPress={() => {}} image={IMAGES.facebook} />
-            <SocialItem onPress={() => {}} image={IMAGES.twitter} />
-            <SocialItem onPress={() => {}} image={IMAGES.telegram} />
-            <SocialItem onPress={() => {}} image={IMAGES.whatsapp} />
+            <SocialItem
+              onPress={() => shareNews(singleNews?.facebook)}
+              image={IMAGES.facebook}
+            />
+            <SocialItem
+              onPress={() => shareNews(singleNews?.twitter)}
+              image={IMAGES.twitter}
+            />
+            <SocialItem
+              onPress={() => shareNews(singleNews?.telegram)}
+              image={IMAGES.telegram}
+            />
+            <SocialItem
+              onPress={() => shareNews(singleNews?.whatsapp)}
+              image={IMAGES.whatsapp}
+            />
           </View>
-        </View>
-      </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 };

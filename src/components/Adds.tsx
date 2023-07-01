@@ -1,22 +1,27 @@
 import React from "react";
-import { Image, ImageSourcePropType, useWindowDimensions } from "react-native";
-import { IMAGES } from "../config/images";
+import { Image, ImageStyle, useWindowDimensions } from "react-native";
 
 interface Props {
-  adsImageSource?: ImageSourcePropType;
+  adsImageSource: { uri: string | undefined };
+  adsContainerStyle: ImageStyle;
 }
 
-export const ADS: React.FC<Props> = ({ adsImageSource }) => {
-  const { width } = useWindowDimensions();
+export const ADS: React.FC<Props> = React.memo(
+  ({ adsImageSource, adsContainerStyle }) => {
+    const { width } = useWindowDimensions();
 
-  return adsImageSource ? (
-    <Image
-      source={adsImageSource}
-      style={{
-        width: width * 0.95,
-        height: 100,
-        resizeMode: "contain",
-      }}
-    />
-  ) : null;
-};
+    return adsImageSource ? (
+      <Image
+        source={adsImageSource}
+        style={[
+          adsContainerStyle,
+          {
+            width: width * 0.95,
+            height: 100,
+            resizeMode: "contain",
+          },
+        ]}
+      />
+    ) : null;
+  },
+);

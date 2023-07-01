@@ -1,23 +1,35 @@
-import { Dimensions, Image, StyleSheet, View } from "react-native";
-import { Input } from "./Input";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { IMAGES } from "../config/images";
 import { globalStyles } from "../config/globalStyles";
 import { COLORS } from "../config/colors";
 import React from "react";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { MainStackScreenParamsList } from "../navigation/types";
+import { useNavigation } from "@react-navigation/native";
+import { TEXT_14 } from "../config/fonts";
+import { SMALL_SPACING } from "../config/dimensions";
 
 export const Header: React.FC = () => {
-  const [search, setSearch] = React.useState<string>("");
+  const navigation =
+    useNavigation<NativeStackNavigationProp<MainStackScreenParamsList>>();
 
   return (
     <View style={styles.container}>
-      <Input
-        placeholder="ابحث عن خبر"
-        rightImageSource={IMAGES.search}
-        containerStyle={styles.inputContainer}
-        value={search}
-        setValue={setSearch}
-      />
-      <Image source={IMAGES.logo} />
+      <Pressable
+        style={styles.searchContainer}
+        onPress={() => navigation.navigate("SearchScreen")}
+      >
+        <Image source={IMAGES.search} style={{ width: 20, height: 20 }} />
+        <Text style={styles.input}>ابحث عن خبر</Text>
+      </Pressable>
+      <Image source={IMAGES.logo} style={{ marginLeft: SMALL_SPACING / 2 }} />
     </View>
   );
 };
@@ -30,7 +42,18 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: COLORS.white,
   },
-  inputContainer: {
-    width: width * 0.63,
+  searchContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: SMALL_SPACING / 2,
+    paddingHorizontal: 15,
+    borderRadius: 12,
+    backgroundColor: COLORS.lightGray,
+  },
+  input: {
+    ...TEXT_14,
+    color: COLORS.mainGray,
   },
 });

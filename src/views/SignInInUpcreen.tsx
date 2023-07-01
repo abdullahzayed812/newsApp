@@ -28,9 +28,12 @@ import { instance } from "../config/api";
 import { LOGIN_ENDPOINT_URL } from "../config/urls";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
-import { TEXT_14 } from "../config/fonts";
+import { TEXT_12, TEXT_14 } from "../config/fonts";
 import { REGISTER_ENDPOINT_URL } from "../config/urls";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { signIn, signUp } from "../redux/auth";
+import { Loading } from "../components/Loading";
 
 export interface InputsValueType {
   firstName: string;
@@ -45,6 +48,8 @@ interface Props {
 }
 
 export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
+  const dispatch = useAppDispatch();
+
   const { width } = useWindowDimensions();
   const [userInfo, setUserInfo] = React.useState<InputsValueType>({
     firstName: "",
@@ -70,6 +75,10 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
     color: COLORS.lightBlack,
   });
   const [showFullName, setShowFullName] = React.useState<boolean>(false);
+
+  const { signInLoading, signUpLoading } = useAppSelector(
+    (state) => state.auth,
+  );
 
   const handleButtonPress = (type: string) => {
     if (type === "signIn") {
@@ -119,7 +128,7 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
       return updateError("Password not match", setError);
     // send data to the server
     try {
-      const signUpResponse = await instance.post(REGISTER_ENDPOINT_URL, {
+      const signUpResponse = await signUp(dispatch, {
         first_name: firstName,
         last_name: lastName,
         email,
@@ -129,7 +138,10 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
       if (signUpResponse?.data?.email) {
         setShowFullName(false);
       } else {
-        Toast.show({ type: "error", text1: signUpResponse?.data?.error });
+        Toast.show({
+          type: "error",
+          text1: signUpResponse?.data?.response?.data?.errors[0],
+        });
       }
     } catch (error) {
       console.log(error);
@@ -151,7 +163,7 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
       );
     // send data to the server
     try {
-      const signInResponse = await instance.post(LOGIN_ENDPOINT_URL, {
+      const signInResponse = await signIn(dispatch, {
         email,
         password,
       });
@@ -162,12 +174,32 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
         await saveUserData(user);
         await saveToken(signInResponse?.data?.data?.token);
         // navigate to main screen
-        navigation.reset({ routes: [{ name: "TabStackScreen" }] });
+        navigation.reset({
+          routes: [
+            {
+              name: "TabStackScreen",
+              state: {
+                routes: [
+                  {
+                    name: "MainStackScreen",
+                    state: { routes: [{ name: "MainScreen" }] },
+                  },
+                ],
+              },
+            },
+          ],
+        });
+      } else {
+        Toast.show({ type: "error", text1: signInResponse?.data?.message });
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (signInLoading || signUpLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -220,7 +252,7 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
                   }
                   fieldTitle="الإسم الأول"
                   leftImageSource={IMAGES.ball}
-                  placeholder="محمود"
+                  placeholder="الإسم"
                 />
                 <AuthInput
                   value={lastName!}
@@ -229,7 +261,7 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
                   }
                   fieldTitle="الإسم الأخير"
                   leftImageSource={IMAGES.ball}
-                  placeholder="فؤاد"
+                  placeholder="الإسم"
                 />
               </>
             ) : null}
@@ -238,7 +270,7 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
               onChangeText={(value) => handleOnChangeInputText(value, "email")}
               fieldTitle="البريد الإلكتروني"
               leftImageSource={IMAGES.ball}
-              placeholder="محمود عصام عثمان"
+              placeholder="البريد"
             />
             <AuthInput
               value={password}
@@ -248,7 +280,20 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
               fieldTitle="كلمةالمرور"
               leftImageSource={IMAGES.ball}
               placeholder="*********"
+              secureTextEntry
             />
+            {showFullName ? (
+              <AuthInput
+                value={confirmPassword}
+                onChangeText={(value) =>
+                  handleOnChangeInputText(value, "confirmPassword")
+                }
+                fieldTitle="تأكيد كلمةالمرور"
+                leftImageSource={IMAGES.ball}
+                placeholder="*********"
+                secureTextEntry
+              />
+            ) : null}
             {!showFullName ? (
               <TouchableOpacity
                 style={TEXT_14}
@@ -258,7 +303,9 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
                   })
                 }
               >
-                <Text>نسيت كلمة المرور؟</Text>
+                <Text style={{ ...TEXT_12, color: COLORS.mediumGray }}>
+                  نسيت كلمة المرور؟
+                </Text>
               </TouchableOpacity>
             ) : null}
             {showFullName ? (

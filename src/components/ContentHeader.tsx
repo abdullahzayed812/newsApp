@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   header: {
     ...globalStyles.justifyBetween,
     justifyContent: "flex-end",
-    marginBottom: SMALL_SPACING / 2,
+    marginVertical: SMALL_SPACING,
   },
   image: {
     marginLeft: SMALL_SPACING / 3,

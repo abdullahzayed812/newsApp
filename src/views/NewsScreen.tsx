@@ -32,8 +32,6 @@ export const NewsScreen: React.FC<Props> = ({ route }) => {
 
   const { singleNews, loading: loadingSingleNews } = useAppSelector(getNews);
 
-  // const { advertisement } = useAppSelector(getAdvertisements);
-
   React.useEffect(() => {
     (async () => await getSingleNews(dispatch, newsID))();
   }, [newsID]);
@@ -76,11 +74,11 @@ export const NewsScreen: React.FC<Props> = ({ route }) => {
             >
               أخبار ذات صلة
             </Text>
-            <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+            <ScrollView showsHorizontalScrollIndicator={false}>
               {singleNews?.related_items?.map((item) => (
                 <SubNews
                   key={item.name}
-                  subNewsImageSource={item.image}
+                  subNewsImageSource={{ uri: item.image }}
                   subNewsContent={item.name}
                   newsID={item.id}
                 />

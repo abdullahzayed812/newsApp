@@ -4,11 +4,11 @@ import { COLORS } from "../config/colors";
 import { Image, StatusBar, useWindowDimensions } from "react-native";
 import { IMAGES } from "../config/images";
 import { globalStyles } from "../config/globalStyles";
-import { getCategories } from "../redux/categories/categoriesSlice";
 import { useAppDispatch } from "../redux/hooks";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
-import { getAdvertisement } from "../redux/advertisement";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getSettings } from "../redux/settings/settingsSlice";
 
 interface Props {
   navigation: NativeStackNavigationProp<RootStackParamList, "SplashScreen">;
@@ -20,9 +20,25 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = useWindowDimensions();
 
   React.useEffect(() => {
-    const timerID = setTimeout(() => {
-      navigation.navigate("StartStackScreen", { screen: "StartScreen" });
-    }, 2000);
+    (async () => {
+      await getSettings(dispatch);
+    })();
+  }, []);
+
+  React.useEffect(() => {
+    const checkVisiting = async () => {
+      const firstVisiting = await AsyncStorage.getItem("firstVisitingStatus");
+      if (!firstVisiting) {
+        navigation.navigate("StartScreen");
+      } else {
+        navigation.navigate("TabStackScreen", {
+          screen: "MainStackScreen",
+          params: { screen: "MainScreen" },
+        });
+      }
+    };
+
+    const timerID = setTimeout(checkVisiting, 2000);
     return () => clearTimeout(timerID);
   }, []);
 

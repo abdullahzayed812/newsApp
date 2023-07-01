@@ -1,61 +1,44 @@
 import React from "react";
-import { ContentHeader } from "./ContentHeader";
-import { ADS } from "./Adds";
-import { ImageSourcePropType, StyleSheet, View } from "react-native";
-import { IMAGES } from "../config/images";
+import { StyleSheet, View } from "react-native";
 import { MainNewsCard } from "./MainNewsCard";
 import { SMALL_SPACING } from "../config/dimensions";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { Loading } from "./Loading";
+import { getLastNews } from "../redux/lastNews/lastNewsSlice";
+import { PopularPosts } from "../redux/popularPost/popularPostSlice";
 
-interface Item {
-  imageBackgroundSource: ImageSourcePropType;
-  category: string;
-  timeStamp: string;
-  content: string;
+interface Props {
+  offset: number;
 }
 
-const DATA: Item[] = [
-  {
-    imageBackgroundSource: IMAGES.mainCard,
-    category: "رياضة",
-    timeStamp: "منذ 3 ساعات",
-    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
-  },
-  {
-    imageBackgroundSource: IMAGES.mainCard,
-    category: "رياضة",
-    timeStamp: "منذ 3 ساعات",
-    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
-  },
-  {
-    imageBackgroundSource: IMAGES.mainCard,
-    category: "رياضة",
-    timeStamp: "منذ 3 ساعات",
-    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
-  },
-  {
-    imageBackgroundSource: IMAGES.mainCard,
-    category: "رياضة",
-    timeStamp: "منذ 3 ساعات",
-    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
-  },
-  {
-    imageBackgroundSource: IMAGES.mainCard,
-    category: "رياضة",
-    timeStamp: "منذ 3 ساعات",
-    content: "عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر",
-  },
-];
+export const LastNews: React.FC<Props> = ({ offset }) => {
+  const dispatch = useAppDispatch();
 
-export const LastNews: React.FC = () => {
+  const [lastNewsList, setLastNewsList] = React.useState<PopularPosts[]>([]);
+
+  const { loading } = useAppSelector((state) => state.lastNews);
+
+  React.useEffect(() => {
+    (async () => {
+      const response = await getLastNews(dispatch, { offset });
+      setLastNewsList(response?.data?.data);
+    })();
+  }, [offset]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <View style={styles.container}>
-      <ContentHeader text="آخر الأخبار" imageSource={IMAGES.lastNews} />
-      <MainNewsCard
-        id={undefined}
-        imageBackgroundSource={IMAGES.mainCard}
-        category="رياضة"
-        content="عقدة ريال مدريد تلاحق ليفربول..وكلوب على الموعد بالثأر"
-      />
+      {lastNewsList.map((news) => (
+        <MainNewsCard
+          key={news.id}
+          id={news.id}
+          imageBackgroundSource={{ uri: news?.image }}
+          content={news.name}
+        />
+      ))}
     </View>
   );
 };

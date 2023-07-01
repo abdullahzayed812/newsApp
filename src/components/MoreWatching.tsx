@@ -29,7 +29,7 @@ const renderItem = (item: PopularPosts) => {
   );
 };
 
-export const MoreWatching: React.FC = () => {
+export const MoreWatching: React.FC = React.memo(() => {
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
@@ -41,16 +41,17 @@ export const MoreWatching: React.FC = () => {
   const { popularPosts } = useAppSelector(getPost);
 
   return (
-    <View style={{ marginTop: SMALL_SPACING / 2 }}>
+    <View style={{ marginVertical: SMALL_SPACING / 2 }}>
       <ContentHeader text="الأكثر مشاهدة" imageSource={IMAGES.moreWatching} />
       <FlatList
         data={popularPosts}
+        keyExtractor={(item) => item.name!.toString()}
         renderItem={({ item }) => renderItem(item)}
         horizontal
         showsHorizontalScrollIndicator={false}
       />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({});

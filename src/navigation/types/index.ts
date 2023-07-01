@@ -1,10 +1,8 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
 
-export type StartStackScreenParamList = {
-  StartScreen: undefined;
-};
 export type MainStackScreenParamsList = {
   MainScreen: undefined;
+  SearchScreen: undefined;
 };
 export type NewsStackScreenParamsList = {
   NewsTabScreen: undefined;
@@ -28,7 +26,7 @@ export type TabStackScreenParamsList = {
   FakeProfileScreen: undefined;
 };
 export type RootStackParamList = {
-  StartStackScreen: NavigatorScreenParams<StartStackScreenParamList>;
+  StartScreen: undefined;
   TabStackScreen: NavigatorScreenParams<TabStackScreenParamsList>;
   AuthStackScreen: NavigatorScreenParams<AuthStackScreenParamsList>;
   ProfileStackScreen: NavigatorScreenParams<ProfileStackScreenParamsList>;

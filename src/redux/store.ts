@@ -5,6 +5,9 @@ import singleNewsReducer from "./singleNews/singleNewsSlice";
 import postsByCategoryReducer from "./postsByCategory";
 import advertisementReducer from "./advertisement";
 import likesDislikesReducer from "./likesDislikes";
+import lastNewsReducer from "./lastNews/lastNewsSlice";
+import settingsReducer from "./settings/settingsSlice";
+import authReducer from "./auth";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +17,9 @@ export const store = configureStore({
     postsByCategory: postsByCategoryReducer,
     advertisement: advertisementReducer,
     likesDislikes: likesDislikesReducer,
+    lastNews: lastNewsReducer,
+    settings: settingsReducer,
+    auth: authReducer,
   },
 });
 

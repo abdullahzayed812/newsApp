@@ -8,8 +8,6 @@ import { IMAGES } from "../config/images";
 import { LikeDisLikeBox } from "./LikeDisLikeBox";
 import { globalStyles } from "../config/globalStyles";
 import { SMALL_SPACING } from "../config/dimensions";
-import { taskCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exceptions";
-import { SocialContainer } from "./SocialContainer";
 import { ShareModal } from "./ShareModal";
 
 interface Props {
@@ -27,9 +25,6 @@ export const NewsUserActions: React.FC<Props> = ({
   newsLikes,
   newsDislikes,
   comments,
-  twitter,
-  whatsapp,
-  telegram,
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();

@@ -14,15 +14,22 @@ import { TEXT_14 } from "../config/fonts";
 interface Props {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   title: string;
+  shareModal?: boolean;
 }
 
-export const ModalHeader: React.FC<Props> = ({ setShowModal, title }) => {
+export const ModalHeader: React.FC<Props> = ({
+  setShowModal,
+  title,
+  shareModal,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{title}</Text>
-      <TouchableOpacity onPress={() => setShowModal(false)}>
-        <Image source={IMAGES.close} />
-      </TouchableOpacity>
+      {!shareModal ? (
+        <TouchableOpacity onPress={() => setShowModal(false)}>
+          <Image source={IMAGES.close} />
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };

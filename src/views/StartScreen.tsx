@@ -7,7 +7,6 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { RootStackParamList } from "../navigation/types";
 import { IMAGES } from "../config/images";
 import { globalStyles } from "../config/globalStyles";
@@ -19,6 +18,7 @@ import { COLORS } from "../config/colors";
 import { SMALL_SPACING } from "../config/dimensions";
 import { useAppSelector } from "../redux/hooks";
 import { getAllCategories } from "../redux/categories/categoriesSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
   navigation: NativeStackNavigationProp<RootStackParamList>;
@@ -26,6 +26,12 @@ interface Props {
 
 export const StartScreen: React.FC<Props> = ({ navigation }) => {
   const { categories } = useAppSelector(getAllCategories);
+
+  React.useEffect(() => {
+    (async () => {
+      await AsyncStorage.setItem("firstVisitingStatus", "true");
+    })();
+  }, []);
 
   const handleStartNowPress = () => {
     navigation.reset({ routes: [{ name: "TabStackScreen" }] });

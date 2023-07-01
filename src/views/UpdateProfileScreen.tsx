@@ -18,6 +18,7 @@ import { TEXT_14 } from "../config/fonts";
 import { instance } from "../config/api";
 import { UPDATE_PROFILE_ENDPOINT_URL } from "../config/urls";
 import { UserPicture } from "../components/UserPicture";
+import { IMAGES } from "../config/images";
 
 export const UpdateProfileScreen: React.FC = () => {
   const { width, height } = useWindowDimensions();
@@ -89,16 +90,19 @@ export const UpdateProfileScreen: React.FC = () => {
             placeholder={user?.first_name ? user?.first_name : "الإسم الأول"}
             value={firstName}
             onChangeText={(text) => handleChange(text, "firstName")}
+            leftImageSource={IMAGES.ball}
           />
           <AuthInput
             placeholder={user?.last_name ? user?.last_name : "الإسم الأخير"}
             value={lastName}
             onChangeText={(text) => handleChange(text, "lastName")}
+            leftImageSource={IMAGES.ball}
           />
           <AuthInput
             placeholder={user?.email ? user.email : "البريد الإلكتروني"}
             value={inputs.email}
             onChangeText={(text) => handleChange(text, "email")}
+            leftImageSource={IMAGES.ball}
           />
           <Button
             text="تأكيد"

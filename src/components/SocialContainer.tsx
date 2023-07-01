@@ -2,7 +2,7 @@ import React from "react";
 import {
   Image,
   ImageSourcePropType,
-  Share,
+  Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,43 +12,47 @@ import { IMAGES } from "../config/images";
 import { SMALL_SPACING } from "../config/dimensions";
 import { TEXT_14 } from "../config/fonts";
 import { COLORS } from "../config/colors";
+import { useAppSelector } from "../redux/hooks";
 
 interface Props {
-  twitter?: string;
-  telegram?: string;
-  whatsapp?: string;
   title?: string;
 }
 
-export const SocialContainer: React.FC<Props> = ({
-  twitter,
-  telegram,
-  whatsapp,
-  title,
-}) => {
-  const openShareApp = async (link: string | undefined, buttonName: string) => {
-    const result = await Share.share({ message: "Share start" });
+export const SocialContainer: React.FC<Props> = ({ title }) => {
+  const { settings } = useAppSelector((state) => state.settings);
+
+  const openShareApp = async (url: string) => {
+    try {
+      await Linking.openURL(url);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const SOCIAL_ITEM_DATA: {
     imageSource: ImageSourcePropType;
-    link: string | undefined;
     onPress: () => void;
   }[] = [
     {
+      imageSource: IMAGES.facebook,
+
+      onPress: () => openShareApp(settings?.facebook),
+    },
+    {
       imageSource: IMAGES.twitter,
-      link: twitter,
-      onPress: () => openShareApp(twitter, "twitter"),
+      onPress: () => openShareApp(settings?.twitter),
     },
     {
       imageSource: IMAGES.instagram,
-      link: telegram,
-      onPress: () => openShareApp(telegram, "telegram"),
+      onPress: () => openShareApp(settings?.instagram),
     },
     {
-      imageSource: IMAGES.whatsapp,
-      link: whatsapp,
-      onPress: () => openShareApp(whatsapp, "whatsapp"),
+      imageSource: IMAGES.tikTok,
+      onPress: () => openShareApp(settings?.tik_tok),
+    },
+    {
+      imageSource: IMAGES.youtube,
+      onPress: () => openShareApp(settings?.youtube),
     },
   ];
 
@@ -58,7 +62,7 @@ export const SocialContainer: React.FC<Props> = ({
       <View style={styles.socialContainer}>
         {SOCIAL_ITEM_DATA.map(({ imageSource, onPress }, index) => (
           <TouchableOpacity key={index} onPress={onPress}>
-            <Image source={imageSource} />
+            <Image source={imageSource} style={styles.socialImage} />
           </TouchableOpacity>
         ))}
       </View>
@@ -77,10 +81,15 @@ const styles = StyleSheet.create({
   },
   socialContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    gap: 30,
     borderRadius: SMALL_SPACING / 2,
-    paddingVertical: SMALL_SPACING * 1.3,
+    padding: SMALL_SPACING * 1.3,
     backgroundColor: COLORS.white,
+  },
+  socialImage: {
+    width: 30,
+    height: 30,
+    resizeMode: "contain",
   },
 });
