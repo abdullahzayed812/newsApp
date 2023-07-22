@@ -61,7 +61,6 @@ export const MainScreen: React.FC = () => {
   }, [offset]);
 
   const handleEndReached = () => {
-    console.log(adsIndex);
     if (offset > 39) {
       return;
     }

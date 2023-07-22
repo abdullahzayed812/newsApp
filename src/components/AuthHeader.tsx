@@ -15,12 +15,14 @@ interface Props {
   pageHeaderTitle?: string;
   subTitle?: string;
   isLoginScreen?: boolean;
+  editProfile?: boolean;
 }
 
 export const AuthHeader: React.FC<Props> = ({
   pageHeaderTitle,
   subTitle,
   isLoginScreen,
+  editProfile,
 }) => {
   const { height } = useWindowDimensions();
 
@@ -31,7 +33,12 @@ export const AuthHeader: React.FC<Props> = ({
   const renderNewsPaperTitle = (
     <>
       {subTitle ? (
-        <Text style={[styles.pageTitle, { color: COLORS.mainColor }]}>
+        <Text
+          style={[
+            styles.pageTitle,
+            { color: COLORS.mainColor, marginTop: editProfile ? 20 : 0 },
+          ]}
+        >
           {subTitle}
         </Text>
       ) : null}

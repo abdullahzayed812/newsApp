@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from "../store";
 import { instance } from "../../config/api";
 import { CATEGORIES_ENDPOINT_URL } from "../../config/urls";
 
-interface Category {
+export interface Category {
   id: number;
   name: string;
   key: string;
@@ -55,6 +55,7 @@ export async function getCategories(dispatch: AppDispatch) {
   try {
     const response = await instance.get(CATEGORIES_ENDPOINT_URL);
     dispatch(categoriesSuccess(response?.data?.data));
+    // console.log(response);
     return response;
   } catch (error) {
     dispatch(categoriesFailed());

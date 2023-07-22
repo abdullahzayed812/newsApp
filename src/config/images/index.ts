@@ -58,4 +58,5 @@ export const IMAGES = {
   true: require("../../../assets/images/true.png"),
   hidden: require("../../../assets/images/hidden.png"),
   eye: require("../../../assets/images/eye.png"),
+  play: require("../../../assets/images/play-button.png"),
 };

@@ -61,7 +61,7 @@ export const UpdateProfileScreen: React.FC = () => {
 
   return (
     <>
-      <AuthHeader />
+      <AuthHeader subTitle="تعديل بيانات حسابك" editProfile />
       <LinearGradient
         colors={[
           COLORS.statusBar,

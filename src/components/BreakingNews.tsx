@@ -4,8 +4,22 @@ import { PipeLine } from "./PipeLine";
 import { COLORS } from "../config/colors";
 import { TEXT_12 } from "../config/fonts";
 import { SMALL_SPACING } from "../config/dimensions";
+import { instance } from "../config/api";
+import { BREAKING_NEWS_ENDPOINT_URL } from "../config/urls";
 
 export const BreakingNews: React.FC = ({}) => {
+  const [breakingNews, setBreakingNews] = React.useState<string>("");
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const response = await instance.get(BREAKING_NEWS_ENDPOINT_URL);
+        setBreakingNews(response?.data?.message);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>

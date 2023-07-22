@@ -1,14 +1,21 @@
 import React from "react";
 import { Image, ImageStyle, useWindowDimensions } from "react-native";
+import { SMALL_SPACING } from "../config/dimensions";
 
 interface Props {
   adsImageSource: { uri: string | undefined };
-  adsContainerStyle: ImageStyle;
+  adsContainerStyle?: ImageStyle;
 }
 
 export const ADS: React.FC<Props> = React.memo(
   ({ adsImageSource, adsContainerStyle }) => {
     const { width } = useWindowDimensions();
+
+    const [height, setHeight] = React.useState<number>();
+
+    Image.getSize(adsImageSource.uri!, (width, height) => {
+      setHeight(height);
+    });
 
     return adsImageSource ? (
       <Image
@@ -16,8 +23,9 @@ export const ADS: React.FC<Props> = React.memo(
         style={[
           adsContainerStyle,
           {
-            width: width * 0.95,
-            height: 100,
+            width: width * 0.9,
+            height,
+            marginVertical: SMALL_SPACING / 2,
             resizeMode: "contain",
           },
         ]}

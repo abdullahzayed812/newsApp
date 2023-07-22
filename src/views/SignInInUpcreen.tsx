@@ -135,12 +135,14 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
         password,
         password_confirmation: confirmPassword,
       });
-      if (signUpResponse?.data?.email) {
+      if (signUpResponse?.data?.user?.id) {
         setShowFullName(false);
+        Toast.show({ text1: "User created successfully" });
       } else {
+        console.log("not");
         Toast.show({
           type: "error",
-          text1: signUpResponse?.data?.response?.data?.errors[0],
+          text1: "User not created",
         });
       }
     } catch (error) {

@@ -5,6 +5,7 @@ import { IMAGES } from "../config/images";
 import { globalStyles } from "../config/globalStyles";
 import { TEXT_12 } from "../config/fonts";
 import { COLORS } from "../config/colors";
+import { SMALL_SPACING } from "../config/dimensions";
 interface Props {
   text: string | undefined;
 }
@@ -16,7 +17,7 @@ export const NewsCategoryTitle: React.FC<Props> = ({ text }) => {
         <Text style={styles.text}>{text}</Text>
         <PipeLine backgroundColor="#00f" />
       </View>
-      <Image source={IMAGES.moreDark} />
+      {/* <Image source={IMAGES.moreDark} /> */}
     </View>
   );
 };

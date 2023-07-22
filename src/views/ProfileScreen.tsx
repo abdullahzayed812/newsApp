@@ -21,6 +21,7 @@ import { RootStackParamList } from "../navigation/types";
 import React from "react";
 import { loadUserData } from "../config/helpers";
 import { useFocusEffect } from "@react-navigation/native";
+import { ShareAppModal } from "../components/ShareAppModal";
 
 interface Props {
   navigation: NativeStackNavigationProp<RootStackParamList>;
@@ -30,6 +31,8 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
 
   const [username, setUsername] = React.useState<string>("");
+  const [showShareAppModal, setShowShareAppModal] =
+    React.useState<boolean>(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -120,11 +123,19 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
               text="الشروط والأحطام"
               imageSource={IMAGES.noteText}
             />
-            <ProfileOption text="مشاركة التطبيق" imageSource={IMAGES.share1} />
+            <ProfileOption
+              text="مشاركة التطبيق"
+              imageSource={IMAGES.share1}
+              onPress={() => setShowShareAppModal(true)}
+            />
             <ProfileOption text="من نحن" imageSource={IMAGES.information} />
             <ProfileOption text="هيئة التحرير" imageSource={IMAGES.box} />
           </View>
           <SocialContainer title="تابعنا على" />
+          <ShareAppModal
+            showModal={showShareAppModal}
+            setShowModal={setShowShareAppModal}
+          />
         </ScrollView>
       </LinearGradient>
     </>

@@ -9,6 +9,7 @@ interface SingleNews {
   name: string;
   content: string;
   category_name: string;
+  views: number | undefined;
   likes: undefined;
   dislikes: undefined;
   created_at: string;
@@ -33,6 +34,7 @@ const initialState: SingleNewsState = {
     name: "",
     content: "",
     category_name: "",
+    views: undefined,
     likes: undefined,
     dislikes: undefined,
     created_at: "",

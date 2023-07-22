@@ -4,7 +4,7 @@ export const REGISTER_ENDPOINT_URL: string = "/members/register";
 
 export const LOGIN_ENDPOINT_URL: string = "/members/login";
 
-export const UPDATE_PASSWORD_ENDPOINT_URL: string = "/change-password";
+export const UPDATE_PASSWORD_ENDPOINT_URL: string = "/members/change-password";
 
 export const UPDATE_PROFILE_ENDPOINT_URL: string = "/members/update-profile";
 
@@ -32,3 +32,5 @@ export const INCREMENT_POST_LIKE_ENDPOINT_URL: string =
   "/post/likes/increment/";
 
 export const LAST_NEWS_ENDPOINT_URL: string = "/last-posts";
+
+export const BREAKING_NEWS_ENDPOINT_URL: string = "/get-breaking-posts";

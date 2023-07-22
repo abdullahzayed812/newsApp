@@ -7,10 +7,15 @@ import { NewsStackScreen } from "../stacks/news";
 import { COLORS } from "../../config/colors";
 import { IMAGES } from "../../config/images";
 import { FakeProfileScreen } from "../../views/FakeProfileScreen";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const TabStack = createBottomTabNavigator<TabStackScreenParamsList>();
 
 export const TabStackScreen: React.FC = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<TabStackScreenParamsList>>();
+
   return (
     <TabStack.Navigator
       initialRouteName="MainStackScreen"
@@ -51,6 +56,12 @@ export const TabStackScreen: React.FC = () => {
         name="NewsStackScreen"
         component={NewsStackScreen}
         options={{ tabBarLabel: "الأخبار" }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("NewsStackScreen", { screen: "NewsTabScreen" });
+          },
+        }}
       />
       <TabStack.Screen
         name="MainStackScreen"

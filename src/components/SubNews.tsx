@@ -18,12 +18,14 @@ import { COLORS } from "../config/colors";
 
 interface Props {
   newsID?: number | undefined;
+  videoURL?: string;
   subNewsImageSource: { uri: string };
   subNewsContent: string | undefined;
 }
 
 export const SubNews: React.FC<Props> = ({
   newsID,
+  videoURL,
   subNewsContent,
   subNewsImageSource,
 }) => {
@@ -44,7 +46,7 @@ export const SubNews: React.FC<Props> = ({
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("NewsScreen", { newsID })}
+      onPress={() => navigation.navigate("NewsScreen", { newsID, videoURL })}
     >
       {renderNewsImage}
       {renderSubNewsContent}

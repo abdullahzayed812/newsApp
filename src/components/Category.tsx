@@ -1,45 +1,54 @@
 import React, { Dispatch, SetStateAction } from "react";
 import {
-  Dimensions,
   Image,
   ImageSourcePropType,
   Pressable,
   StyleSheet,
   Text,
-  TouchableOpacity,
 } from "react-native";
 import { COLORS } from "../config/colors";
 import { BORDER_RADIUS, SMALL_SPACING } from "../config/dimensions";
 import { globalStyles } from "../config/globalStyles";
 import { TEXT_12 } from "../config/fonts";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
+import { getPostsByCategoryID } from "../redux/postsByCategory";
 import { setCategoryId } from "../redux/categories/categoriesSlice";
 
 interface Props {
+  categoryID: number;
   index: number;
   text: string;
 
   imageSource?: ImageSourcePropType;
 
   isStartScreen?: boolean;
+  setActiveIndex?: Dispatch<SetStateAction<number>>;
+  activeIndex?: number;
 }
 
 export const Category: React.FC<Props> = ({
+  categoryID,
   index,
   text,
   imageSource,
   isStartScreen,
+  setActiveIndex,
+  activeIndex,
 }) => {
   const dispatch = useAppDispatch();
 
-  const { categoryID } = useAppSelector((state) => state.categories);
-
-  const handleCategoryPress = () => {
+  const handleCategoryPress = React.useCallback(async () => {
     if (isStartScreen) {
       return null;
     }
-    dispatch(setCategoryId(index));
-  };
+    setActiveIndex?.(index);
+    dispatch(setCategoryId(categoryID));
+    try {
+      await getPostsByCategoryID(dispatch, categoryID, 10);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <Pressable
@@ -48,11 +57,7 @@ export const Category: React.FC<Props> = ({
         styles.container,
         {
           backgroundColor:
-            index === categoryID
-              ? COLORS.mainColor
-              : isStartScreen
-              ? "transparent"
-              : COLORS.lightMainColor,
+            index === activeIndex ? COLORS.mainColor : COLORS.lightMainColor,
         },
       ]}
     >
@@ -60,12 +65,7 @@ export const Category: React.FC<Props> = ({
         style={[
           styles.text,
           {
-            color:
-              index === categoryID
-                ? COLORS.white
-                : isStartScreen
-                ? "white"
-                : COLORS.mainGray,
+            color: index === activeIndex ? COLORS.white : COLORS.mainGray,
           },
         ]}
       >

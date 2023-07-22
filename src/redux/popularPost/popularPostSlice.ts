@@ -7,6 +7,7 @@ export interface PopularPosts {
   id?: number;
   image?: string;
   name?: string;
+  url?: string;
   isAds?: boolean;
 }
 

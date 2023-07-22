@@ -45,11 +45,12 @@ export const {
 export async function getPostsByCategoryID(
   dispatch: AppDispatch,
   categoryID: number,
+  postsNumber: number,
 ) {
   dispatch(postsByCategoryIDRequest());
   try {
     const response = await instance.get(
-      `${POSTS_BY_CATEGORY_ENDPOINT_URL}${categoryID + 1}/20/0`,
+      `${POSTS_BY_CATEGORY_ENDPOINT_URL}${categoryID}/${postsNumber}/0`,
     );
     dispatch(postsByCategoryIDSuccess(response?.data?.data));
     return response;
