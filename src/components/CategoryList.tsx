@@ -60,6 +60,7 @@ export const CategoryList: React.FC<Props> = ({
             />
           </>
         )}
+        inverted
         // onScrollToIndexFailed={({ index, averageItemLength }) => {
         //   // Layout doesn't know the exact location of the requested element.
         //   // Falling back to calculating the destination manually

@@ -7,6 +7,7 @@ import { UpdateProfileScreen } from "../../../views/UpdateProfileScreen";
 import { SettingsScreen } from "../../../views/SettingsScreen";
 import { UpdatePasswordScreen } from "../../../views/UpdatePasswordScreen";
 import { ChangeLangScreen } from "../../../views/ChangeLangScreen";
+import { EditorialBoard } from "../../../views/EditorialBoard";
 
 const ProfileStack = createNativeStackNavigator<ProfileStackScreenParamsList>();
 
@@ -34,6 +35,7 @@ export const ProfileStackScreen: React.FC = () => {
         name="ChangeLangScreen"
         component={ChangeLangScreen}
       />
+      <ProfileStack.Screen name="EditorialBoard" component={EditorialBoard} />
     </ProfileStack.Navigator>
   );
 };

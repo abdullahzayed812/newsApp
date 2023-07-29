@@ -29,6 +29,7 @@ import { SubNews } from "../components/SubNews";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { IMAGES } from "../config/images";
 import { globalStyles } from "../config/globalStyles";
+import { ViewsCount } from "../components/ViewsCount";
 
 interface Props {
   navigation: NativeStackNavigationProp<TabStackScreenParamsList>;
@@ -66,12 +67,17 @@ export const NewsScreen: React.FC<Props> = ({ navigation, route }) => {
         ) : (
           <>
             <View style={styles.container}>
-              <View style={{ marginVertical: SMALL_SPACING / 2 }}>
-                <NewsCategoryTitle text={singleNews?.category_name} />
-                <TimeStamp text={singleNews?.created_at} />
-                <Text style={{ ...TEXT_14, fontWeight: "bold" }}>
-                  {singleNews?.views} مشاهدة
-                </Text>
+              <View
+                style={{
+                  marginVertical: SMALL_SPACING / 2,
+                  flexDirection: "row-reverse",
+                }}
+              >
+                <View>
+                  <NewsCategoryTitle text={singleNews?.category_name} />
+                  <TimeStamp text={singleNews?.created_at} />
+                </View>
+                <ViewsCount views={singleNews?.views} />
               </View>
               <Text style={styles.newsText}>{singleNews?.name}</Text>
             </View>

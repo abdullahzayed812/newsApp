@@ -84,7 +84,7 @@ export const MainScreen: React.FC = () => {
           renderItem={renderItem}
           ListHeaderComponent={() => (
             <>
-              <BreakingNews />
+              {/* <BreakingNews /> */}
               <MoreWatching />
               {advertisement?.position_2 ? (
                 <ADS

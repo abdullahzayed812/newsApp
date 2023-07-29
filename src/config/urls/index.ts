@@ -34,3 +34,5 @@ export const INCREMENT_POST_LIKE_ENDPOINT_URL: string =
 export const LAST_NEWS_ENDPOINT_URL: string = "/last-posts";
 
 export const BREAKING_NEWS_ENDPOINT_URL: string = "/get-breaking-posts";
+
+export const EDITORIAL_BOARD_ENDPOINT_URL: string = "/page-by-name/4";

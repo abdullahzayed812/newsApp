@@ -15,6 +15,7 @@ export type ProfileStackScreenParamsList = {
   SettingsScreen: undefined;
   UpdatePasswordScreen: undefined;
   ChangeLangScreen: undefined;
+  EditorialBoard: undefined;
 };
 export type AuthStackScreenParamsList = {
   SignInUpScreen: undefined;

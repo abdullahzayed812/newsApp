@@ -137,7 +137,17 @@ export const SignInUpScreen: React.FC<Props> = ({ navigation }) => {
       });
       if (signUpResponse?.data?.user?.id) {
         setShowFullName(false);
-        Toast.show({ text1: "User created successfully" });
+        setSignInButtonStyle({
+          backgroundColor: COLORS.mainColor,
+          color: COLORS.white,
+        });
+        setSignUpButtonStyle({
+          backgroundColor: COLORS.lightMainColor,
+          color: COLORS.lightBlack,
+        });
+        Toast.show({
+          text1: "تم إضافة الحساب بنجاج، يمكنك تسجيل الدخول الآن.",
+        });
       } else {
         console.log("not");
         Toast.show({

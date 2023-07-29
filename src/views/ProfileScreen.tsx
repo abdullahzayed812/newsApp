@@ -129,7 +129,15 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
               onPress={() => setShowShareAppModal(true)}
             />
             <ProfileOption text="من نحن" imageSource={IMAGES.information} />
-            <ProfileOption text="هيئة التحرير" imageSource={IMAGES.box} />
+            <ProfileOption
+              text="هيئة التحرير"
+              imageSource={IMAGES.box}
+              onPress={() =>
+                navigation.navigate("ProfileStackScreen", {
+                  screen: "EditorialBoard",
+                })
+              }
+            />
           </View>
           <SocialContainer title="تابعنا على" />
           <ShareAppModal
