@@ -1,15 +1,17 @@
 import { FlatList, ImageSourcePropType } from "react-native";
 import { Category as CategoryType } from "../redux/categories/categoriesSlice";
 import { Category } from "./Category";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useAppSelector } from "../redux/hooks";
 import { getAdvertisements } from "../redux/advertisement";
 import { IMAGES } from "../config/images";
 import { Loading } from "./Loading";
 import { ADS } from "./Adds";
+import { SMALL_SPACING } from "../config/dimensions";
 
 interface Props {
   categories: CategoryType[];
+  setPostsLimit: Dispatch<SetStateAction<number>>;
 }
 
 const CATEGORY_IMAGE: ImageSourcePropType[] = [
@@ -23,22 +25,22 @@ const CATEGORY_IMAGE: ImageSourcePropType[] = [
   IMAGES.note,
 ];
 
-export const CategoryList: React.FC<Props> = ({ categories }) => {
+export const CategoryList: React.FC<Props> = ({
+  categories,
+  setPostsLimit,
+}) => {
   const [activeIndex, setActiveIndex] = React.useState<number>(0);
   const categoryListRef = React.useRef<FlatList>(null);
 
-  const { loading: advertisementLoading, advertisement } =
-    useAppSelector(getAdvertisements);
-
   const { loading } = useAppSelector((state) => state.postsByCategory);
 
-  React.useEffect(() => {
-    categoryListRef?.current?.scrollToIndex({
-      animated: true,
-      index: activeIndex,
-      viewPosition: 0.5,
-    });
-  }, [activeIndex]);
+  // React.useEffect(() => {
+  //   categoryListRef?.current?.scrollToIndex({
+  //     animated: true,
+  //     index: activeIndex,
+  //     viewPosition: 0.5,
+  //   });
+  // }, [activeIndex]);
 
   return (
     <>
@@ -54,31 +56,24 @@ export const CategoryList: React.FC<Props> = ({ categories }) => {
               imageSource={CATEGORY_IMAGE[index]}
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
+              setPostsLimit={setPostsLimit}
             />
           </>
         )}
-        onScrollToIndexFailed={({ index, averageItemLength }) => {
-          // Layout doesn't know the exact location of the requested element.
-          // Falling back to calculating the destination manually
-          categoryListRef.current?.scrollToOffset({
-            offset: activeIndex,
-            animated: false,
-          });
-        }}
-        initialNumToRender={10}
-        ref={categoryListRef}
+        // onScrollToIndexFailed={({ index, averageItemLength }) => {
+        //   // Layout doesn't know the exact location of the requested element.
+        //   // Falling back to calculating the destination manually
+        //   categoryListRef.current?.scrollToOffset({
+        //     offset: activeIndex,
+        //     animated: false,
+        //   });
+        // }}
+        // initialNumToRender={10}
+        // ref={categoryListRef}
         horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: SMALL_SPACING }}
       />
-      {advertisementLoading ? (
-        <Loading />
-      ) : advertisement?.position_1 ? (
-        <ADS
-          adsImageSource={{
-            uri: advertisement?.position_7,
-          }}
-        />
-      ) : null}
       {loading ? <Loading /> : null}
     </>
   );

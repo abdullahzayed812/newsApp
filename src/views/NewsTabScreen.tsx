@@ -4,14 +4,17 @@ import { COLORS } from "../config/colors";
 import { Header } from "../components/Header";
 import { Container } from "../components/Container";
 import { SubNews } from "../components/SubNews";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 import {
   Category as CategoryItemType,
   getAllCategories,
 } from "../redux/categories/categoriesSlice";
-import { getPostsByCategoryID } from "../redux/postsByCategory";
 import { PopularPosts } from "../redux/popularPost/popularPostSlice";
 import { CategoryList } from "../components/CategoryList";
+import { instance } from "../config/api";
+import { POSTS_BY_CATEGORY_ENDPOINT_URL } from "../config/urls";
+import { Loading } from "../components/Loading";
+import { NewsListHeader } from "../components/NewsListHeader";
 
 const renderItem = ({ item, index }: { item: PopularPosts; index: number }) => {
   return (
@@ -26,33 +29,69 @@ const renderItem = ({ item, index }: { item: PopularPosts; index: number }) => {
 };
 
 export const NewsTabScreen: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const [newsList, setNewsList] = React.useState<PopularPosts[]>([]);
+  const [postsLimit, setPostsLimit] = React.useState<number>(10);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
-  const { categories } = useAppSelector(getAllCategories);
-  const { postsByCategoryID } = useAppSelector(
-    (state) => state.postsByCategory,
-  );
+  const { categories, categoryID } = useAppSelector(getAllCategories);
 
   React.useEffect(() => {
     (async () => {
       try {
-        await getPostsByCategoryID(dispatch, 1, 10);
+        postsLimit === 10 ? setLoading(true) : setLoading(false);
+        const response = await instance.get(
+          `${POSTS_BY_CATEGORY_ENDPOINT_URL}${categoryID}/${postsLimit}/0`,
+        );
+        const sliceList = response?.data?.data.slice(-10);
+        postsLimit === 10
+          ? setNewsList(sliceList)
+          : setNewsList((prev) => [...prev, ...sliceList]);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     })();
-  }, []);
+  }, [postsLimit, categoryID]);
+
+  const handleEndReached = async () => {
+    console.log("end reached");
+    if (postsLimit === 50) return;
+    setPostsLimit((prev) => prev + 10);
+    // try {
+    //   const response = await instance.get(
+    //     `${POSTS_BY_CATEGORY_ENDPOINT_URL}${
+    //       !categoryID ? 1 : categoryID
+    //     }/${postsLimit}/0`,
+    //   );
+    //   const sliceList = response?.data?.data.slice(-10);
+    //   setNewsList((prev) => [...prev, sliceList]);
+    //   setPostsLimit(postsLimit + 10);
+    //   console.log({ sliceList });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
 
   return (
     <>
       <Header />
 
       <Container containerStyle={{ backgroundColor: COLORS.white }}>
-        <FlatList
-          data={postsByCategoryID}
-          renderItem={({ item, index }) => renderItem({ item, index })}
-          ListHeaderComponent={<CategoryList categories={categories} />}
-        />
+        <CategoryList categories={categories} setPostsLimit={setPostsLimit} />
+        {loading ? (
+          <Loading />
+        ) : (
+          <FlatList
+            data={newsList}
+            renderItem={({ item, index }) => renderItem({ item, index })}
+            ListHeaderComponent={<NewsListHeader />}
+            ListFooterComponent={<Loading />}
+            initialNumToRender={10}
+            onEndReachedThreshold={0}
+            onEndReached={handleEndReached}
+          />
+        )}
       </Container>
     </>
   );

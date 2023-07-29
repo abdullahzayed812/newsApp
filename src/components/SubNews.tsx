@@ -32,7 +32,7 @@ export const SubNews: React.FC<Props> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
 
-  const renderNewsImage = subNewsImageSource ? (
+  const renderNewsImage = subNewsImageSource.uri ? (
     <Image source={subNewsImageSource} style={styles.image} />
   ) : null;
 

@@ -33,6 +33,9 @@ const postsByCategorySlice = createSlice({
     postsByCategoryIDFailed(state) {
       state.loading = false;
     },
+    addNewsList(state, action) {
+      state.postsByCategoryID = [...state.postsByCategoryID, action.payload];
+    },
   },
 });
 
@@ -40,6 +43,7 @@ export const {
   postsByCategoryIDRequest,
   postsByCategoryIDSuccess,
   postsByCategoryIDFailed,
+  addNewsList,
 } = postsByCategorySlice.actions;
 
 export async function getPostsByCategoryID(

@@ -24,6 +24,7 @@ interface Props {
   isStartScreen?: boolean;
   setActiveIndex?: Dispatch<SetStateAction<number>>;
   activeIndex?: number;
+  setPostsLimit?: Dispatch<SetStateAction<number>>;
 }
 
 export const Category: React.FC<Props> = ({
@@ -34,6 +35,7 @@ export const Category: React.FC<Props> = ({
   isStartScreen,
   setActiveIndex,
   activeIndex,
+  setPostsLimit,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -43,11 +45,12 @@ export const Category: React.FC<Props> = ({
     }
     setActiveIndex?.(index);
     dispatch(setCategoryId(categoryID));
-    try {
-      await getPostsByCategoryID(dispatch, categoryID, 10);
-    } catch (error) {
-      console.log(error);
-    }
+    setPostsLimit?.(10);
+    // try {
+    //   await getPostsByCategoryID(dispatch, categoryID, 10);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }, []);
 
   return (
@@ -81,6 +84,7 @@ export const Category: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     ...globalStyles.justifyBetween,
+    height: 30,
     marginHorizontal: SMALL_SPACING / 6,
     justifyContent: "flex-end",
     paddingHorizontal: 10,
