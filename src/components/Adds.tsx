@@ -11,11 +11,11 @@ export const ADS: React.FC<Props> = React.memo(
   ({ adsImageSource, adsContainerStyle }) => {
     const { width } = useWindowDimensions();
 
-    const [height, setHeight] = React.useState<number>();
+    // const [height, setHeight] = React.useState<number>();
 
-    Image.getSize(adsImageSource.uri!, (width, height) => {
-      setHeight(height);
-    });
+    // Image.getSize(adsImageSource.uri!, (width, height) => {
+    //   setHeight(height);
+    // });
 
     return adsImageSource ? (
       <Image
@@ -24,7 +24,7 @@ export const ADS: React.FC<Props> = React.memo(
           adsContainerStyle,
           {
             width: width * 0.9,
-            height,
+            height: 250,
             marginVertical: SMALL_SPACING / 2,
             resizeMode: "contain",
           },

@@ -58,6 +58,8 @@ export const MainNewsCard: React.FC<Props> = React.memo(
             screen: "NewsScreen",
             params: {
               newsID: id,
+              videoURL: undefined,
+              location: "Main",
             },
           })
         }

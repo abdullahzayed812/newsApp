@@ -24,6 +24,7 @@ const renderItem = ({ item, index }: { item: PopularPosts; index: number }) => {
       videoURL={item.url}
       subNewsImageSource={{ uri: item.image! }}
       subNewsContent={item.name}
+      location="News"
     />
   );
 };
@@ -55,22 +56,8 @@ export const NewsTabScreen: React.FC = () => {
   }, [postsLimit, categoryID]);
 
   const handleEndReached = async () => {
-    console.log("end reached");
     if (postsLimit === 50) return;
     setPostsLimit((prev) => prev + 10);
-    // try {
-    //   const response = await instance.get(
-    //     `${POSTS_BY_CATEGORY_ENDPOINT_URL}${
-    //       !categoryID ? 1 : categoryID
-    //     }/${postsLimit}/0`,
-    //   );
-    //   const sliceList = response?.data?.data.slice(-10);
-    //   setNewsList((prev) => [...prev, sliceList]);
-    //   setPostsLimit(postsLimit + 10);
-    //   console.log({ sliceList });
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   return (

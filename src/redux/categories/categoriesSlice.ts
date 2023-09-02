@@ -55,7 +55,6 @@ export async function getCategories(dispatch: AppDispatch) {
   try {
     const response = await instance.get(CATEGORIES_ENDPOINT_URL);
     dispatch(categoriesSuccess(response?.data?.data));
-    // console.log(response);
     return response;
   } catch (error) {
     dispatch(categoriesFailed());

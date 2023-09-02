@@ -41,8 +41,6 @@ export const MainScreen: React.FC = () => {
   const [adsIndex, setAdsIndex] = React.useState<number>(0);
   const [offset, setOffset] = React.useState<number>(0);
 
-  console.log({ offset, adsIndex });
-
   const { advertisement, loading } = useAppSelector(getAdvertisements);
 
   React.useEffect(() => {

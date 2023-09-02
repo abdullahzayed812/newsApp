@@ -6,7 +6,11 @@ export type MainStackScreenParamsList = {
 };
 export type NewsStackScreenParamsList = {
   NewsTabScreen: undefined;
-  NewsScreen: { newsID: number | undefined; videoURL: string | undefined };
+  NewsScreen: {
+    newsID: number | undefined;
+    videoURL: string | undefined;
+    location: "News" | "Main";
+  };
 };
 export type ProfileStackScreenParamsList = {
   ProfileScreen: undefined;

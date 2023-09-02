@@ -39,7 +39,7 @@ interface Props {
 export const NewsScreen: React.FC<Props> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
 
-  const { newsID, videoURL } = route.params;
+  const { newsID, videoURL, location } = route.params;
 
   const { singleNews, loading: loadingSingleNews } = useAppSelector(getNews);
 
@@ -50,7 +50,11 @@ export const NewsScreen: React.FC<Props> = ({ navigation, route }) => {
   }, [newsID]);
 
   BackHandler.addEventListener("hardwareBackPress", function () {
-    navigation.reset({ routes: [{ name: "NewsStackScreen" }] });
+    if (location === "News")
+      navigation.reset({ routes: [{ name: "NewsStackScreen" }] });
+    else if (location === "Main")
+      navigation.reset({ routes: [{ name: "MainStackScreen" }] });
+
     return true;
   });
 
@@ -127,6 +131,7 @@ export const NewsScreen: React.FC<Props> = ({ navigation, route }) => {
                   subNewsImageSource={{ uri: item.image }}
                   subNewsContent={item.name}
                   newsID={item.id}
+                  location="News"
                 />
               ))}
             </View>

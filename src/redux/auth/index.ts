@@ -76,7 +76,6 @@ export async function signUp(
   try {
     const response = await instance.post(REGISTER_ENDPOINT_URL, data);
     dispatch(signUpSuccess());
-    console.log(response);
     return response;
   } catch (error) {
     dispatch(signUpFailed());

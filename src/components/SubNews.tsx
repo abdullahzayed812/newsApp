@@ -17,10 +17,11 @@ import { TEXT_12 } from "../config/fonts";
 import { COLORS } from "../config/colors";
 
 interface Props {
-  newsID?: number | undefined;
-  videoURL?: string;
+  location: "News" | "Main";
   subNewsImageSource: { uri: string };
   subNewsContent: string | undefined;
+  newsID?: number | undefined;
+  videoURL?: string;
 }
 
 export const SubNews: React.FC<Props> = ({
@@ -28,6 +29,7 @@ export const SubNews: React.FC<Props> = ({
   videoURL,
   subNewsContent,
   subNewsImageSource,
+  location,
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<NewsStackScreenParamsList>>();
@@ -46,7 +48,9 @@ export const SubNews: React.FC<Props> = ({
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("NewsScreen", { newsID, videoURL })}
+      onPress={() =>
+        navigation.navigate("NewsScreen", { newsID, videoURL, location })
+      }
     >
       {renderNewsImage}
       {renderSubNewsContent}
