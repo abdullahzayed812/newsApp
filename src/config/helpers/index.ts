@@ -42,6 +42,15 @@ export async function loadUserData() {
   }
 }
 
+export async function removeUserData() {
+  try {
+    await AsyncStorage.removeItem("userData");
+    return true;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function saveToken(token: string) {
   try {
     await AsyncStorage.setItem("token", token);

@@ -24,7 +24,7 @@ export const ADS: React.FC<Props> = React.memo(
           adsContainerStyle,
           {
             width: width * 0.9,
-            height: 250,
+            height: 150,
             marginVertical: SMALL_SPACING / 2,
             resizeMode: "contain",
           },

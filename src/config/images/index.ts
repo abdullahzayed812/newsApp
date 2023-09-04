@@ -60,4 +60,5 @@ export const IMAGES = {
   eye: require("../../../assets/images/eye.png"),
   play: require("../../../assets/images/play-button.png"),
   view: require("../../../assets/images/view.png"),
+  logout: require("../../../assets/images/logout.png"),
 };

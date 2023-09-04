@@ -28,7 +28,7 @@ export const ProfileOption: React.FC<Props> = ({
 }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Image source={imageSource} />
+      <Image source={imageSource} style={{ width: 30, height: 30 }} />
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );

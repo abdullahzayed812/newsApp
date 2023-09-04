@@ -19,9 +19,10 @@ import { SocialContainer } from "../components/SocialContainer";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/types";
 import React from "react";
-import { loadUserData } from "../config/helpers";
+import { loadUserData, removeUserData } from "../config/helpers";
 import { useFocusEffect } from "@react-navigation/native";
 import { ShareAppModal } from "../components/ShareAppModal";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 interface Props {
   navigation: NativeStackNavigationProp<RootStackParamList>;
@@ -64,6 +65,13 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
     !username
       ? navigation.navigate("AuthStackScreen", { screen: "SignInUpScreen" })
       : null;
+
+  const handleLogout = async () => {
+    const res = await removeUserData();
+    if (res) {
+      Toast.show({ type: "success", text1: "تم تسجيل الخروج." });
+    }
+  };
 
   return (
     <>
@@ -138,6 +146,13 @@ export const ProfileScreen: React.FC<Props> = ({ navigation }) => {
                 })
               }
             />
+            {username ? (
+              <ProfileOption
+                text="تسجيل الخروج"
+                imageSource={IMAGES.logout}
+                onPress={handleLogout}
+              />
+            ) : null}
           </View>
           <SocialContainer title="تابعنا على" />
           <ShareAppModal
